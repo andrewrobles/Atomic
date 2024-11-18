@@ -8,13 +8,15 @@ The technical requirements should be that this is a MERN stack application that 
 
 ### Features
 
+Before starting these features we will need to create and deploy a React app with express that is connected to a Node app that is connected to a MongoDB instance. We will use Vercel to deploy the react app. We will deploy the Node app by renting a VPS and using that in order to host our app. We will create a simple endpoint that is a ping endpoint. Since the react app will depend on the API endpoint, then it is important that we first create the node backend for this. 
+
 ##### New habit
-I want to be able to click on a button that allows me to enter the name of the habit I would like to start. The button will say "New Habit" and have a . When I press it, a text box will appear with a check box to the left of it in which I can put the name of the habit and press return on my keyboard. After I press return, I should see this habit appear in the list of habits. If I press return with no text in the text box, then no habit will be added.
+I want to be able to click on a button that allows me to enter the name of the habit I would like to start. The button will say "New Habit". When I press it, a text box will appear with a check box to the left of it in which I can put the name of the habit and press return on my keyboard. After I press return, I should see this habit appear in the list of habits. If I press return with no text in the text box, then no habit will be added.
 
 | Component | Screenshot |
 |----------|----------|
-| NewHabitButton    | <img src="new-habit-button.png" alt="drawing" width="80"> |
-| NewHabitForm   | <img src="new-habit-form.png" alt="drawing" width="200"/>    |
+| NewHabitButton    | <img src="png/new-habit-button.png" alt="drawing" width="100"> |
+| NewHabitForm   | <img src="png/new-habit-form.png" alt="drawing" width="200"/>    |
 
 ```
 POST /api/habits
@@ -26,7 +28,7 @@ I would like to see a list of all the habits that I have created.
 
 | Component | Screenshot |
 |----------|----------|
-| HabitList    | <img src="habit-list.png" alt="drawing" width="100"> |
+| HabitList    | <img src="png/habit-list.png" alt="drawing" width="100"> |
 ```
 GET /api/habits
 habits: <habits>[]
@@ -37,7 +39,7 @@ I would like the ability to mark any of them complete by clicking on the empty c
 
 | Component | Screenshot |
 |----------|----------|
-| Unchecked    | <img src="unchecked.png" alt="drawing" width="25"> |
+| Unchecked    | <img src="png/unchecked.png" alt="drawing" width="25"> |
 ```
 POST api/habits/:id/done
 ```
@@ -47,7 +49,7 @@ I should be able to mark a habit not done if it is already marked as complete.
 
 | Component | Screenshot |
 |----------|----------|
-| Checked    | <img src="checked.png" alt="drawing" width="25"> |
+| Checked    | <img src="png/checked.png" alt="drawing" width="25"> |
 ```
 DELETE api/habits/:id/done
 ```
@@ -57,7 +59,7 @@ To edit the name of a habit, I should be able to press anywhere in the same line
 
 | Component | Screenshot |
 |----------|----------|
-| EditHabitForm    | <img src="edit-habit-form.png" alt="drawing" width="200"> |
+| EditHabitForm    | <img src="png/edit-habit-form.png" alt="drawing" width="200"> |
 
 ```
 PUT /api/habits/:id
@@ -77,3 +79,4 @@ I would like to be able to click on a habit to see all the previous days marked 
 ```
 GET /api/habits/:id
 ```
+

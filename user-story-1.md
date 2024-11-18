@@ -1,0 +1,1 @@
+I should be able to do GET api.habits.andrewrobles.com/ping and as a response I should get status 200 OK and `{"message": "pong"}`.
