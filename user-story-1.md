@@ -1,1 +1,0 @@
-I should be able to do GET /ping and as a response I should get status 200 OK and `{"message": "pong"}`.
