@@ -1,6 +1,0 @@
-Deploy app
-    Deploy server
-    Link client to server
-Fix component code warnings
-Make fields clickable
-Add Cypress dependency

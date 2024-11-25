@@ -1,1 +1,0 @@
-- [x] **Ping Endpoint**: I should be able to do GET http://147.182.195.20:5050/ping and as a response I should get status 200 OK and `{"message": "pong"}`

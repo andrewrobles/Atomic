@@ -1,82 +1,30 @@
-# Habits 
+# lbs 
 
-The app I would like to build next is one that comes from tracking my bad habits. It should consist of all my favorite features from an app called Habit Tracker created by Davetech Co, Ltd. I use the Habit Tracker app to track all the habits that I would like to quit. Every week or so, I go into the app and consolidate this information into an excel spreadsheet in which I can see all the data in an easy-to-read place from a month perspective.
-
-### Technical Requirements
-
-The technical requirements should be that this is a MERN stack application that will eventually grow to become an iOS app after I finish the necessary training for this. I will have to learn certain skills such as adding authentication to a MERN stack app using Firebase. I don’t think this authentication is necessary for the initial MVP as I will be the only one using the app to start with. We should design the app to be as simple as possible to contain only the features that are in this document.
-
-### Features
-
-Before starting these features we will need to create and deploy a React app with express that is connected to a Node app that is connected to a MongoDB instance. We will use Vercel to deploy the react app. We will deploy the Node app by renting a VPS and using that in order to host our app. We will create a simple endpoint that is a ping endpoint. Since the react app will depend on the API endpoint, then it is important that we first create the node backend for this. 
-
-##### New habit
-I want to be able to click on a button that allows me to enter the name of the habit I would like to start. The button will say "New Habit". When I press it, a text box will appear with a check box to the left of it in which I can put the name of the habit and press return on my keyboard. After I press return, I should see this habit appear in the list of habits. If I press return with no text in the text box, then no habit will be added.
-
-| Component | Screenshot |
-|----------|----------|
-| NewHabitButton    | <img src="png/new-habit-button.png" alt="drawing" width="100"> |
-| NewHabitForm   | <img src="png/new-habit-form.png" alt="drawing" width="200"/>    |
+I want to be able to log my weight for today. The API endpoint for this feature should be
 
 ```
-POST /api/habits
-name: <string> 
+POST /api/logs
+{
+    "lbs": XXX.X
+}
 ```
 
-##### View habits
-I would like to see a list of all the habits that I have created.
-
-| Component | Screenshot |
-|----------|----------|
-| HabitList    | <img src="png/habit-list.png" alt="drawing" width="100"> |
-```
-GET /api/habits
-habits: <habits>[]
-```
-
-##### Mark complete
-I would like the ability to mark any of them complete by clicking on the empty checkbox.
-
-| Component | Screenshot |
-|----------|----------|
-| Unchecked    | <img src="png/unchecked.png" alt="drawing" width="25"> |
-```
-POST api/habits/:id/done
-```
-
-##### Mark not complete
-I should be able to mark a habit not done if it is already marked as complete.
-
-| Component | Screenshot |
-|----------|----------|
-| Checked    | <img src="png/checked.png" alt="drawing" width="25"> |
-```
-DELETE api/habits/:id/done
-```
-
-##### Edit habit
-To edit the name of a habit, I should be able to press anywhere in the same line of the habit and then the name of the habit will be made editable similar to the view when adding a habit, the only difference is that the previous name of the habit will prepopulate the form.
-
-| Component | Screenshot |
-|----------|----------|
-| EditHabitForm    | <img src="png/edit-habit-form.png" alt="drawing" width="200"> |
+I would like to see a list of all the weights that I have logged by date. The API endpoint for this feature should be
 
 ```
-PUT /api/habits/:id
+GET /api/logs
+```
+with response as an array of
+```
+{
+    "date": MM/DD/YYYY,
+    "lbs": XXX.X
+}
 ```
 
-##### Delete habit
-To delete a habit, I should be able to click on the habit and see a trash can all the way to the right of the row in which I can click. If I click it, then I should be able to see "habitname will be permanently deleted." with subtext "You won't be able to undo this action" with light gray and red buttons  "Cancel" and "Delete habit".
+The UI design for this app should be a text field that is always there with a log button next to it. Below the text box there should be a scrollable list of all the previously dates and weight logs.
 
-UI components: Delete button, alert 
-```
-DELETE /api/habits/:id
-```
-
-##### Habit detail
-I would like to be able to click on a habit to see all the previous days marked in which I have completed or not completed a habit.
-
-```
-GET /api/habits/:id
-```
-
+### TODO
+- [x] **Ping Endpoint**: I should be able to do GET /ping and as a response I should get {"message": "pong"}
+- [ ] **Deploy Frontend**: I should be able to see the contents of the ping endpoint in the browser developer console
+- [ ] **Get Logs Endpoint**: I should be able to do GET /api/logs and as a response I should get an array of dated logs
