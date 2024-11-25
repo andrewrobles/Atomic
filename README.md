@@ -1,5 +1,9 @@
 # lbs 
 
+To start the app, cd into the lbs/web/api directory and do `node index.js`, then in another terminal do `npm start` from the lbs/web/ui directory.
+
+### REQUIREMENTS
+
 I want to be able to log my weight for today. The API endpoint for this feature should be
 
 ```
@@ -28,3 +32,4 @@ The UI design for this app should be a text field that is always there with a lo
 - [x] **Ping Endpoint**: I should be able to do GET /ping and as a response I should get {"message": "pong"}
 - [ ] **Deploy Frontend**: I should be able to see the contents of the ping endpoint in the browser developer console
 - [ ] **Get Logs Endpoint**: I should be able to do GET /api/logs and as a response I should get an array of dated logs
+
