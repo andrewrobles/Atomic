@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost' : 'http://147.182.195.20'
+
 function App() {
   useEffect(() => {
     // Call to an API endpoint
-    fetch('http://localhost:5050/ping')
+    fetch(`${BASE_URL}:5050/ping`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
