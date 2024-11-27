@@ -54,6 +54,7 @@ I want to be able to click on a button that allows me to enter the name of the h
 ```
 POST /api/obj
 {
+    type: "habit",
     name: <string> 
 }
 ```
@@ -65,7 +66,7 @@ I would like to see a list of all the habits that I have created.
 |----------|----------|
 | List    | <img src="png/list.png"  width="70"> |
 ```
-GET /api/obj
+GET /api/obj?type=habit
 ```
 
 ##### Mark complete
@@ -77,6 +78,7 @@ I would like the ability to mark any of them complete by clicking on the empty c
 ```
 PUT api/obj?date=<yyyy-mm-dd>
 {
+    "type"="event"
     "habitId": <id> 
     "done": true
 }
@@ -89,7 +91,7 @@ I should be able to mark a habit not done if it is already marked as complete.
 |----------|----------|
 | Checkbox    | <img src="png/checked.png"  width="25"> |
 ```
-PUT api/obj?date=<yyyy-mm-dd>&habitId=<id>
+PATCH api/obj?date=<yyyy-mm-dd>&habitId=<id>
 {
     "done": false
 }
@@ -103,7 +105,7 @@ To edit the name of a habit, I should be able to press anywhere in the same line
 | TextField    | <img src="png/text-field.png"  width="200"> |
 
 ```
-PATCH /api/obj?habitId=<id>
+PATCH /api/obj?id=<id>
 {
     "name": <string>
 }
@@ -123,7 +125,7 @@ Note that we want to delete all of the events that were referenced for this habi
 I would like to be able to click on a habit to see all the previous days marked in which I have completed or not completed a habit.
 
 ```
-GET /api/obj/:id
+GET /api/obj?id=<id>
 ```
 
 ### Things to do
