@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost' : 'https://147.182.195.20'
+const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost' : 'http://147.182.195.20'
 
 function App() {
   useEffect(() => {
