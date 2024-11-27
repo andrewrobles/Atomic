@@ -1,6 +1,6 @@
 # Opt
 
-A project in which multiple apps can be created for various purposes, let these be called microapps. The apps that are currently being built are a [fitness app](#fitness-app) and a [habits app](#habits-app).
+A platform in which various apps are available in which users can opt-in to. The apps that are currently being built are a [fitness app](#fitness-app) and a [habits app](#habits-app).
 
 ### How to
 - Run app locally: cd into the lbs/web/api directory and do `node index.js`, then in another terminal do `npm start` from the lbs/web/ui directory
@@ -130,11 +130,6 @@ GET /api/obj?id=<id>
 
 ### Things to do
 - [x] Ping Endpoint: I should be able to do GET /ping and as a response I should get {"message": "pong"}
+- [ ] Custom URL: I should be able to see the front end running at opt.andrewrobles.com
 - [ ] SSL Setup: I should be able to go to /ping using HTTPS and get a valid response using [this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-20-04)
 - [ ] UI-API Integration: I should be able to see the contents of the ping endpoint in the browser developer console
-- [ ] Bar Component: I should be able see a demo of the Bar component at /ui/bar
-- [ ] Form Component: I should be able see a demo of the Form component at /ui/form
-- [ ] List Component: I should be able see a demo of the List component at /ui/list
-- [ ] Custom URL: I should be able to see the front end running at opt.andrewrobles.com
-- [ ] Get Object Endpoint: I should be able to use GET /api/obj per the requirements 
-- [ ] Create Object Endpoint: I should be able to use PUT /api/obj per the requirements
