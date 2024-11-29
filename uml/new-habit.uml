@@ -1,0 +1,23 @@
+@startuml
+start
+
+:User opens Habits App;
+:User clicks "New Habit";
+
+:Display "New Habit" form;
+
+if (User fills out form?) then (Yes)
+    if (User submits form?) then (Yes)
+        :Save the new habit;
+        :Display updated habit list;
+    else (No)
+        :User cancels form;
+        :Return to habit list without changes;
+    endif
+else (No)
+    :User cancels form;
+    :Return to habit list without changes;
+endif
+
+stop
+@enduml
