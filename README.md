@@ -1,6 +1,7 @@
 ### How to
 - Run app locally: cd into the api directory and do `netlify dev`, then in another terminal do `npm start` from the ui directory
 - Deploy an API change: run `netlify deploy` to stage changes then do `netlify deploy --prod` once functionality has been verified
+- Serve documentation: run `docsify serve ./doc -p 3001`
 
 ### View habits
 I would like to see a list of all the habits that I have created.
