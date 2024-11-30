@@ -1,6 +1,6 @@
 ### How to
-- Run app locally: cd into the lbs/web/api directory and do `node index.js`, then in another terminal do `npm start` from the lbs/web/ui directory
-- Deploy an API change: open up a console in digital ocean and do `pm2 restart index` from the lbs/web/api directory.
+- Run app locally: cd into the api directory and do `netlify dev`, then in another terminal do `npm start` from the ui directory
+- Deploy an API change: run `netlify deploy` to stage changes then do `netlify deploy --prod` once functionality has been verified
 
 ### View habits
 I would like to see a list of all the habits that I have created.
