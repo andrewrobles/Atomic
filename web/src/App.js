@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// const BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost' : 'http://147.182.195.20'
-const URL = 'https://habits-api.netlify.app/.netlify/functions/app/ping'
+const PROD_HOST = 'https://habits-api.netlify.app'
+const LOCAL_HOST = 'http://localhost:8888'
+const PATH = '/.netlify/functions/app'
+const BASE_URL = window.location.hostname === 'localhost' ? LOCAL_HOST : PROD_HOST
+
 function App() {
   useEffect(() => {
     // Call to an API endpoint
-    fetch(URL)
+    fetch(BASE_URL + PATH + '/ping')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);

@@ -1,0 +1,1 @@
+That there was no 404 error at https://habits-api.netlify.app
