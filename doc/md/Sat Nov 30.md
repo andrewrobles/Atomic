@@ -11,4 +11,4 @@ docs/
     puml
 ```
 - [x] Resolve API server warnings
-- [ ] Get Habits Endpoint
+- [ ] Resolve 404 error at https://habits-api.netlify.app
