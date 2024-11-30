@@ -11,7 +11,6 @@ POST /habits
     name: <string> 
 }
 ```
-<img src="png/new-habit-user-flow.png">
 
 ### View habits
 I would like to see a list of all the habits that I have created.
@@ -19,6 +18,8 @@ I would like to see a list of all the habits that I have created.
 ```
 GET /habits
 ```
+<img src="png/new-habit-user-flow.png">
+
 
 ### Mark complete or not complete
 I would like the ability to mark any of them complete by clicking on the empty checkbox.
