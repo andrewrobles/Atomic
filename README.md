@@ -19,7 +19,7 @@ POST /habits
 }
 ```
 
-<img src="png/new-habit-user-flow.png">
+<img src="docs/png/new-habit-user-flow.png">
 
 
 ### Mark complete or not complete
