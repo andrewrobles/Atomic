@@ -7,8 +7,9 @@
 - [x] Ping Endpoint: I should be able to do GET /ping and as a response I should get {"message": "pong"}
 - [x] SSL Setup: I should be able to go to /ping using HTTPS and get a valid response
 - [x] UI-API Integration: I should be able to see the contents of the ping endpoint in the browser developer console
-- [ ] Custom URL: I should be able to see the app running on habits.andrewrobles.com
-- [ ] GET Habits Endpoint: I should be able to do GET /habits and see all of the habits that are in MongoDB
+- [x] Custom URL: I should be able to see the app running on habits.andrewrobles.com
+- [x] GET Habits Endpoint: I should be able to do GET /habits and see all of the habits that are in MongoDB
+- [x] View Habits: I should see the habits on the web app
 
 # Product Requirements
 
