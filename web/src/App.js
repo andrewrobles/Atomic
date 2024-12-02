@@ -35,7 +35,15 @@ function App() {
       <div style={{ padding: '16px' }}>
         <List>
           {habits.map((item, index) => (
-            <ListItem key={index}>
+            <ListItem
+              key={index}
+              sx={{
+                '&:hover': {
+                  backgroundColor: 'action.hover', // MUI theme hover color
+                  cursor: 'pointer',
+                },
+              }}
+            >
               <ListItemText primary={item.name} />
             </ListItem>
           ))}
