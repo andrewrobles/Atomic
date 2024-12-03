@@ -17,7 +17,7 @@ async function main() {
     return 'done.';
 }
 
-router.get("/", async (req, res) => {
+router.get("/", async (_req, res) => {
     const habits = await client.db("habitsdb").collection("habits").find({}).toArray()
     res.status(200).json(habits);
 });
