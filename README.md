@@ -1,15 +1,15 @@
 ### How to
 - Run app locally: cd into the api directory and do `netlify dev`, then in another terminal do `npm start` from the web directory
 - Deploy an API change: run `netlify deploy` to stage changes then do `netlify deploy --prod` once functionality has been verified
-- Serve documentation: run `docsify serve ./doc -p 3001`
 
-### To do
+### User Stories
 - [x] Ping Endpoint: I should be able to do GET /ping and as a response I should get {"message": "pong"}
 - [x] SSL Setup: I should be able to go to /ping using HTTPS and get a valid response
 - [x] UI-API Integration: I should be able to see the contents of the ping endpoint in the browser developer console
 - [x] Custom URL: I should be able to see the app running on habits.andrewrobles.com
 - [x] GET Habits Endpoint: I should be able to do GET /habits and see all of the habits that are in MongoDB
 - [x] View Habits: I should see the habits on the web app
+- [ ] Auth: I should be able to sign in and sign out of the app
 
 # Product Requirements
 
