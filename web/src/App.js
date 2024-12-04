@@ -9,7 +9,16 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getHabits(setHabits, setError);
+    const fetchHabits = async () => {
+      try {
+        const response = await getHabits();
+        setHabits(response.data); 
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchHabits(); 
   }, []);
 
   return (
