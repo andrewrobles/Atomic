@@ -17,9 +17,19 @@ async function main() {
     return 'done.';
 }
 
-router.get("/", async (_req, res) => {
-    const habits = await client.db("habitsdb").collection("habits").find({}).toArray()
-    res.status(200).json(habits);
+router.get("/", async (req, res) => {
+    const { password } = req.query;
+
+    if (password !== process.env.PASSWORD) {
+        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
+    }
+
+    try {
+        const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
+        res.status(200).json(habits);
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 main()

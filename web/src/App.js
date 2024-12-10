@@ -1,34 +1,21 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Main from './pages/Main';
+import Auth from './pages/Auth';
 
-import HabitList from './components/HabitList'
-import getHabits from './api/index'
-
-function App() {
-  const [habits, setHabits] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchHabits = async () => {
-      try {
-        const response = await getHabits();
-        setHabits(response.data); 
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchHabits(); 
-  }, []);
-
+const App = () => {
   return (
-    <div>
-      {error && <p className="error">Error: {error}</p>}
-      <div style={{ padding: '16px' }}>
-        <HabitList habits={habits} />
+    <Router>
+      <div>
+
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/auth" element={<Auth />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
-}
+};
 
 export default App;

@@ -15,6 +15,10 @@
 
 Below you will find a list of required features and design details that will be implemented for the initial MVP
 
+### Authentication
+
+All endpoints require a query parameter `?password=<password>` otherwise it will return 401 unauthorized. In the UI, if the the password is not provided, then it should redirect the user to the login page in which they can provide the password.
+
 ### View Habits
 I would like to see a list of all the habits that I have created.
 
