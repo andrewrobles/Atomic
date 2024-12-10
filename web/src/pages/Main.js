@@ -1,37 +1,51 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import the useNavigate hook
+import { useNavigate } from 'react-router-dom';
+import { Button, Container } from '@mui/material';
 import HabitList from '../components/HabitList';
 import getHabits from '../api/index';
 
 function Main() {
   const [habits, setHabits] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();  // Initialize the navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHabits = async () => {
       try {
         const response = await getHabits();
-        setHabits(response.data); 
+        setHabits(response.data);
       } catch (err) {
-        // Check for a 401 status code and redirect to /auth if encountered
         if (err.response && err.response.status === 401) {
-          navigate('/auth');  // Redirect to /auth page
+          navigate('/auth');
         } else {
           setError(err.message);
         }
       }
     };
 
-    fetchHabits(); 
-  }, [navigate]);  // Make sure to include navigate as a dependency
+    fetchHabits();
+  }, [navigate]);
+
+  const handleSignOut = () => {
+    // Clear authentication tokens or perform sign-out logic here
+    navigate('/auth'); // Redirect to the authentication page
+    localStorage.removeItem('userPassword');
+  };
 
   return (
     <div>
+      {/* Sign Out Button */}
+
+      {/* Main Content */}
       {error && <p className="error">Error: {error}</p>}
-      <div style={{ padding: '16px' }}>
+      <Container maxWidth="sm">
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
+          <Button color="inherit" onClick={handleSignOut}>
+            Sign Out
+          </Button>
+        </div>
         <HabitList habits={habits} />
-      </div>
+      </Container>
     </div>
   );
 }

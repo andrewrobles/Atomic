@@ -57,6 +57,7 @@ const Auth = () => {
         justifyContent="center"
         minHeight="100vh"
         padding={2}
+        sx={{backgroundColor: 'white'}} 
       >
         <TextField
           label="Password"
