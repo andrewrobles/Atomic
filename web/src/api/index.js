@@ -18,4 +18,9 @@ const getHabits = () => {
     return api.get(`/habits${passwordQuery}`);
 };
 
-export default getHabits;
+const deleteHabit = (id) => {
+    const passwordQuery = getPasswordQuery();
+    return api.delete(`/habits/${id}${passwordQuery}`);
+};
+
+export default { getHabits, deleteHabit };

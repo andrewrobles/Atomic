@@ -12,13 +12,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import api from '../api';
 const HabitList = (props) => {
   const [open, setOpen] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const handleOpen = (habit) => {
-    setSelectedHabit(habit);
+    setSelectedHabit(habit);  
     setOpen(true);
   };
 
@@ -27,12 +27,14 @@ const HabitList = (props) => {
     setSelectedHabit(null);
   };
 
+
   const handleOpenConfirmDelete = () => {
     setOpenConfirmDelete(true);
   };
 
-  const handleDelete = () => {
-    alert(`Deleted habit: ${selectedHabit.name}`);
+  const handleDelete = async () => {
+    await api.deleteHabit(selectedHabit._id);
+    await props.onDelete();
     setOpenConfirmDelete(false)
     handleClose();
   };

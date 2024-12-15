@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Container } from '@mui/material';
 import HabitList from '../components/HabitList';
-import getHabits from '../api/index';
+import api from '../api';
 
 function Main() {
   const [habits, setHabits] = useState([]);
@@ -12,7 +12,7 @@ function Main() {
   useEffect(() => {
     const fetchHabits = async () => {
       try {
-        const response = await getHabits();
+        const response = await api.getHabits();
         setHabits(response.data);
       } catch (err) {
         if (err.response && err.response.status === 401) {
@@ -25,6 +25,15 @@ function Main() {
 
     fetchHabits();
   }, [navigate]);
+  
+  const refreshHabits = async () => {
+    try {
+      const response = await api.getHabits();
+      setHabits(response.data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   const handleSignOut = () => {
     // Clear authentication tokens or perform sign-out logic here
@@ -44,7 +53,7 @@ function Main() {
             Sign Out
           </Button>
         </div>
-        <HabitList habits={habits} />
+        <HabitList habits={habits} onDelete={refreshHabits} />
       </Container>
     </div>
   );
