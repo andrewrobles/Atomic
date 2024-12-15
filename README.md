@@ -3,8 +3,8 @@
 - Deploy an API change: run `netlify deploy` to stage changes then do `netlify deploy --prod` once functionality has been verified
 
 ### User Stories
-- [ ] Create Habit: I should be able to create a habit
 - [ ] Delete Habit: I should be able to delete a habit
+- [ ] Create Habit: I should be able to create a habit
 - [ ] Loading Screen: I should be able to see a loading screen when the data is being loaded so I know to wait for the data to show up
 
 ### Authentication
