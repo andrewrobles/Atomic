@@ -6,7 +6,7 @@ import {
   Button,
   Container,
 } from '@mui/material';
-import getHabits from '../api/index'; // Import the getHabits function
+import api from '../api'; // Import the getHabits function
 
 const Auth = () => {
   const [password, setPassword] = useState('');
@@ -16,7 +16,8 @@ const Auth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await getHabits();
+        // TODO: Use data from this API call in index page
+        const response = await api.getHabits();
         if (response.status === 200) {
           navigate('/'); // Navigate to the main page if already authenticated
         }
@@ -38,7 +39,7 @@ const Auth = () => {
       console.log('Password stored in local storage:', password);
 
       // Call getHabits to confirm authentication
-      const response = await getHabits();
+      const response = await api.getHabits();
       if (response.status === 200) {
         navigate('/'); // Navigate to the main page on success
       }
