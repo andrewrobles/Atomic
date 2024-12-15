@@ -8,16 +8,16 @@ import HabitListItem from './HabitListItem';
 import api from '../api';
 
 const HabitList = (props) => {
-  const [open, setOpen] = useState(false);
+  const [openHabitActions, setOpenHabitActions] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const handleOpen = (habit) => {
     setSelectedHabit(habit);  
-    setOpen(true);
+    setOpenHabitActions(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenHabitActions(false);
     setSelectedHabit(null);
   };
 
@@ -46,7 +46,7 @@ const HabitList = (props) => {
       </List>
       
       <HabitActionsDialog 
-        open={open}
+        open={openHabitActions}
         onClose={handleClose}
         selectedHabit={selectedHabit}
         onOpenConfirmDelete={handleOpenConfirmDelete}
@@ -55,7 +55,7 @@ const HabitList = (props) => {
         open={openConfirmDelete}
         onClose={() => {
           setOpenConfirmDelete(false);
-          setOpen(false);
+          setOpenHabitActions(false);
         }}
         onDelete={handleDelete}
         habitName={selectedHabit?.name}
