@@ -35,7 +35,9 @@ const DeleteConfirmDialog = ({ open, onClose, onDelete, habitName, selectedHabit
               </IconButton>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Are you sure you want to delete "{habitName}"?</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                Are you sure you want to delete "{habitName}"?
+              </Typography>
             </Box>
         </DialogTitle>
         <DialogContent>
