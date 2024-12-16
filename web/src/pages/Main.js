@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import HabitList from '../components/HabitList';
 import api from '../api';
 
@@ -54,6 +55,23 @@ function Main() {
           </Button>
         </div>
         <HabitList habits={habits} onDelete={refreshHabits} />
+        <Fab 
+          color="primary" 
+          aria-label="add"
+          sx={{
+            position: 'fixed',
+            bottom: 16,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'white',
+            color: 'primary.main',
+            '&:hover': {
+              backgroundColor: '#f5f5f5'
+            }
+          }}
+        >
+          <AddIcon />
+        </Fab>
       </Container>
     </div>
   );
