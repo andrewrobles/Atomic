@@ -48,7 +48,6 @@ const HabitList = (props) => {
       <HabitActionsDialog 
         open={openHabitActions}
         onClose={handleClose}
-        selectedHabit={selectedHabit}
         onOpenConfirmDelete={handleOpenConfirmDelete}
       />
       <DeleteConfirmDialog

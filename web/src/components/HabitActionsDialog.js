@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-const HabitActionsDialog = ({ open, onClose, selectedHabit, onOpenConfirmDelete }) => {
+const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
     return (
         <Dialog
         open={open}
@@ -39,7 +39,6 @@ const HabitActionsDialog = ({ open, onClose, selectedHabit, onOpenConfirmDelete 
             </Box>
         </DialogTitle>
         <DialogContent>
-            {selectedHabit ? (
             <>
                 <Button
                 variant="text"
@@ -52,9 +51,6 @@ const HabitActionsDialog = ({ open, onClose, selectedHabit, onOpenConfirmDelete 
                 Delete
                 </Button>
             </>
-            ) : (
-            <Typography variant="body2">Loading...</Typography>
-            )}
         </DialogContent>
         </Dialog>
 );
