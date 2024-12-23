@@ -17,6 +17,14 @@ async function main() {
     return 'done.';
 }
 
+/*
+AUTHENTICATION
+
+Endpoints require a query parameter `?password=<password>` otherwise it will   
+return 401 unauthorized. If the the password is not available in localStorage,
+then the user should be redirected to the login page.
+*/
+
 router.get("/", async (req, res) => {
     const { password } = req.query;
 
@@ -115,6 +123,9 @@ router.patch("/:id/:date", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+// TODO: Edit habit `PATCH /habits/<id> { "name": <string> }`
+// TODO: Habit detail `GET /habits/<id>`
 
 main()
     .then(console.log)
