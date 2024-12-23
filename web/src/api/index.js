@@ -25,9 +25,12 @@ const deleteHabit = (id) => {
 
 const addHabit = (name) => {
     const passwordQuery = getPasswordQuery();
-    console.log('NAME')
-    console.log(name)
     return api.post(`/habits${passwordQuery}`, { name });
 };
 
-export default { getHabits, deleteHabit, addHabit };
+const updateHabitCompletion = (id, date, done) => {
+    const passwordQuery = getPasswordQuery();
+    return api.patch(`/habits/${id}/${date}${passwordQuery}`, { done });
+};
+
+export default { getHabits, deleteHabit, addHabit, updateHabitCompletion };
