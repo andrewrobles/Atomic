@@ -1,11 +1,8 @@
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 // TODO: Make a generic dialogue 
@@ -14,10 +11,14 @@ const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
         <Dialog
         open={open}
         onClose={onClose}
+        fullScreen
         sx={{
             '& .MuiDialog-paper': {
-            width: '550px', // Set the width of the dialog
-            maxWidth: 'none', // Disable default max width restriction
+                width: '100%',
+                height: '100%',
+                margin: 0,
+                maxWidth: 'none',
+                maxHeight: 'none'
             },
         }}
         >
