@@ -89,14 +89,20 @@ router.patch("/:id/:date", async (req, res) => {
     }
 
     try {
+        let updateOperation;
+        if (done) {
+            updateOperation = {
+                $addToSet: { dates: date }
+            };
+        } else {
+            updateOperation = {
+                $pull: { dates: date }
+            };
+        }
+
         const result = await client.db("habitsdb").collection("habits").updateOne(
             { _id: new mongodb.ObjectId(id) },
-            { 
-                $set: {
-                    [`completions.${date}`]: done
-                }
-            },
-            { upsert: true }
+            updateOperation
         );
         
         if (result.matchedCount === 0) {

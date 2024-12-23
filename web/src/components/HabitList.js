@@ -11,6 +11,7 @@ const HabitList = (props) => {
   const [openHabitActions, setOpenHabitActions] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
+
   const handleOpen = (habit) => {
     setSelectedHabit(habit);  
     setOpenHabitActions(true);
@@ -20,7 +21,6 @@ const HabitList = (props) => {
     setOpenHabitActions(false);
     setSelectedHabit(null);
   };
-
 
   const handleOpenConfirmDelete = () => {
     setOpenConfirmDelete(true);
@@ -33,6 +33,16 @@ const HabitList = (props) => {
     handleClose();
   };
 
+  const handleMarkComplete = async (habitId, date) => {
+    await api.updateHabitCompletion(habitId, date, true);
+    await props.onDelete(); // Refresh habits list
+  };
+
+  const handleMarkNotComplete = async (habitId, date) => {
+    await api.updateHabitCompletion(habitId, date, false);
+    await props.onDelete(); // Refresh habits list
+  };
+
   return (
     <>
       <List>
@@ -41,6 +51,8 @@ const HabitList = (props) => {
             key={index}
             item={item}
             onOpen={handleOpen}
+            onMarkComplete={handleMarkComplete}
+            onMarkNotComplete={handleMarkNotComplete}
           />
         ))}
       </List>
@@ -63,6 +75,5 @@ const HabitList = (props) => {
     </>
   );
 };
-
 
 export default HabitList;
