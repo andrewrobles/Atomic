@@ -40,9 +40,6 @@ router.post("/", async (req, res) => {
         return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
     }
 
-    console.log('BODY')
-    console.log(req.body)
-
     if (!name) {
         return res.status(400).json({ error: "Name is required" });
     }

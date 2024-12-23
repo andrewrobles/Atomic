@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Fab } from '@mui/material';
+import { Button, Container, Fab, CircularProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
@@ -10,6 +10,7 @@ function Main() {
   const [habits, setHabits] = useState([]);
   const [error, setError] = useState(null);
   const [openNewHabit, setOpenNewHabit] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,8 @@ function Main() {
         } else {
           setError(err.message);
         }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -30,11 +33,14 @@ function Main() {
   }, [navigate]);
   
   const refreshHabits = async () => {
+    setLoading(true);
     try {
       const response = await api.getHabits();
       setHabits(response.data);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -64,7 +70,13 @@ function Main() {
             Sign Out
           </Button>
         </div>
-        <HabitList habits={habits} onDelete={refreshHabits} />
+        {loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <HabitList habits={habits} onDelete={refreshHabits} />
+        )}
         <Fab 
           color="primary" 
           aria-label="add"
