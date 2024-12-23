@@ -65,15 +65,8 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
-                    sx={{
-                        backgroundColor: 'black',
-                        color: 'white',
-                        '&:hover': {
-                            backgroundColor: '#333'
-                        }
-                    }}
                 >
-                    Define your habit
+                   Confirm 
                 </Button>
             </Box>
         </DialogContent>
