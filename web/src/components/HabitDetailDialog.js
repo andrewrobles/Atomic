@@ -1,11 +1,50 @@
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
 
 const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
+    const [heatmapData, setHeatmapData] = useState([]);
+
+    useEffect(() => {
+        if (habit?.dates) {
+            // Get dates for last year
+            const today = new Date();
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(today.getFullYear() - 1);
+            
+            // Create array of all dates in the last year
+            const dates = [];
+            for (let d = new Date(oneYearAgo); d <= today; d.setDate(d.getDate() + 1)) {
+                const dateStr = d.toISOString().split('T')[0];
+                dates.push({
+                    date: dateStr,
+                    count: habit.dates.includes(dateStr) ? 1 : 0,
+                    dayOfWeek: d.getDay() // 0-6, where 0 is Sunday
+                });
+            }
+            setHeatmapData(dates.reverse()); // Reverse to get most recent first
+        }
+    }, [habit]);
+
+    // Group dates into weeks
+    const weeks = [];
+    let currentWeek = [];
+    heatmapData.forEach((day) => {
+        if (day.dayOfWeek === 0 && currentWeek.length > 0) {
+            weeks.push(currentWeek);
+            currentWeek = [];
+        }
+        currentWeek.push(day);
+    });
+    if (currentWeek.length > 0) {
+        weeks.push(currentWeek);
+    }
+
     return (
         <Dialog
         open={open}
@@ -39,8 +78,41 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
             </IconButton>
             </Box>
         </DialogTitle>
+        <DialogContent>
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%'
+            }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    gap: '2px', 
+                    padding: 2,
+                    maxWidth: 'fit-content'
+                }}>
+                    {weeks.map((week, weekIndex) => (
+                        <Box key={weekIndex} sx={{ display: 'flex', gap: '2px' }}>
+                            {week.map((day, dayIndex) => (
+                                <Box
+                                    key={`${weekIndex}-${dayIndex}`}
+                                    sx={{
+                                        width: '10px',
+                                        height: '10px',
+                                        backgroundColor: day.count ? '#196127' : '#ebedf0',
+                                        borderRadius: '2px'
+                                    }}
+                                    title={`${day.date}: ${day.count ? 'Completed' : 'Not completed'}`}
+                                />
+                            ))}
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+        </DialogContent>
         </Dialog>
-);
+    );
 };
 
 export default HabitDetailDialog;
