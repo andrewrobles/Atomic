@@ -31,17 +31,31 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
         }
     }, [habit]);
 
-    // Group dates into weeks
+    // Group dates into weeks, padding first week with empty days if needed
     const weeks = [];
     let currentWeek = [];
+    
+    // Add empty days at the start to align with correct day of week
+    if (heatmapData.length > 0) {
+        const firstDay = heatmapData[0].dayOfWeek;
+        for (let i = 0; i < firstDay; i++) {
+            currentWeek.push({ count: 0, dayOfWeek: i, date: '' });
+        }
+    }
+
     heatmapData.forEach((day) => {
-        if (day.dayOfWeek === 0 && currentWeek.length > 0) {
+        currentWeek.push(day);
+        if (currentWeek.length === 7) {
             weeks.push(currentWeek);
             currentWeek = [];
         }
-        currentWeek.push(day);
     });
+
+    // Pad the last week with empty days if needed
     if (currentWeek.length > 0) {
+        while (currentWeek.length < 7) {
+            currentWeek.push({ count: 0, dayOfWeek: currentWeek.length, date: '' });
+        }
         weeks.push(currentWeek);
     }
 
@@ -103,7 +117,7 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
                                         backgroundColor: day.count ? '#196127' : '#ebedf0',
                                         borderRadius: '2px'
                                     }}
-                                    title={`${day.date}: ${day.count ? 'Completed' : 'Not completed'}`}
+                                    title={day.date ? `${day.date}: ${day.count ? 'Completed' : 'Not completed'}` : ''}
                                 />
                             ))}
                         </Box>
