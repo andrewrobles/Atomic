@@ -5,8 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// TODO: Make a generic dialogue 
-const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
+const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
     return (
         <Dialog
         open={open}
@@ -30,7 +29,7 @@ const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
                 justifyContent: 'space-between',
             }}
             >
-            <Typography variant="h6">Habit</Typography>
+            <Typography variant="h6">{habit?.name}</Typography>
             <IconButton
                 aria-label="close"
                 onClick={onClose}
@@ -44,4 +43,4 @@ const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
 );
 };
 
-export default HabitActionsDialog;
+export default HabitDetailDialog;
