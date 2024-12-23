@@ -7,8 +7,23 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import api from '../api';
+import { useState } from 'react';
 
 const NewHabitDialog = ({ open, onClose, onSave }) => {
+    const [habitName, setHabitName] = useState('');
+
+    const handleSubmit = async () => {
+        try {
+            await api.addHabit(habitName);
+            onSave();
+            onClose();
+            setHabitName('');
+        } catch (err) {
+            console.error('Error creating habit:', err);
+        }
+    };
+
     return (
         <Dialog
         open={open}
@@ -44,9 +59,12 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
                     fullWidth
                     label="Habit name"
                     variant="outlined"
+                    value={habitName}
+                    onChange={(e) => setHabitName(e.target.value)}
                 />
                 <Button
                     variant="contained"
+                    onClick={handleSubmit}
                     sx={{
                         backgroundColor: 'black',
                         color: 'white',

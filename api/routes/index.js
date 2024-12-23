@@ -32,6 +32,30 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/", async (req, res) => {
+    const { password } = req.query;
+    const { name } = req.body;
+
+    if (password !== process.env.PASSWORD) {
+        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
+    }
+
+    console.log('BODY')
+    console.log(req.body)
+
+    if (!name) {
+        return res.status(400).json({ error: "Name is required" });
+    }
+
+    try {
+        const result = await client.db("habitsdb").collection("habits").insertOne({ name });
+        res.status(201).json({ message: "Habit created successfully", id: result.insertedId });
+    } catch (error) {
+        console.error("Error creating habit:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 router.delete("/:id", async (req, res) => {
     const { password } = req.query;
 

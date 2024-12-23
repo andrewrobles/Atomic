@@ -5,6 +5,7 @@ const routes = require('./routes')
 
 const router = express.Router();
 const app = express();
+app.use(express.json());
 
 router.get("/", (_req, res) => {
     res.send("Welcome to the Habits API!")
