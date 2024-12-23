@@ -2,6 +2,7 @@ import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -54,24 +55,20 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
             </Box>
         </DialogTitle>
         <DialogContent>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <TextField
-                    fullWidth
-                    label="Habit name"
-                    variant="outlined"
-                    value={habitName}
-                    onChange={(e) => setHabitName(e.target.value)}
-                />
-                <Button
-                    variant="contained"
-                    onClick={handleSubmit}
-                >
-                   Confirm 
-                </Button>
-            </Box>
+            <TextField
+                fullWidth
+                label="Habit name"
+                variant="standard"
+                value={habitName}
+                onChange={(e) => setHabitName(e.target.value)}
+            />
         </DialogContent>
+        <DialogActions>
+            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={handleSubmit}>Confirm</Button>
+        </DialogActions>
         </Dialog>
-);
+    );
 };
 
 export default NewHabitDialog;
