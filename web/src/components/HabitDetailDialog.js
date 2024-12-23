@@ -37,14 +37,16 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
     
     // Add empty days at the start to align with correct day of week
     if (heatmapData.length > 0) {
-        const firstDay = heatmapData[0].dayOfWeek;
+        const firstDay = (heatmapData[0].dayOfWeek + 6) % 7; // Convert Sunday=0 to Monday=0
         for (let i = 0; i < firstDay; i++) {
             currentWeek.push({ count: 0, dayOfWeek: i, date: '' });
         }
     }
 
     heatmapData.forEach((day) => {
-        currentWeek.push(day);
+        // Convert Sunday=0 to Monday=0 by shifting the day
+        const adjustedDay = {...day, dayOfWeek: (day.dayOfWeek + 6) % 7};
+        currentWeek.push(adjustedDay);
         if (currentWeek.length === 7) {
             weeks.push(currentWeek);
             currentWeek = [];
