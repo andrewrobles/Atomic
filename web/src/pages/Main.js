@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Fab, CircularProgress } from '@mui/material';
+import { Button, Container, Fab, CircularProgress, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
@@ -75,7 +75,19 @@ function Main() {
             <CircularProgress />
           </div>
         ) : (
-          <HabitList habits={habits} onDelete={refreshHabits} />
+          <>
+            {habits.length === 0 ? (
+              <Typography 
+                variant="body1" 
+                align="center" 
+                sx={{ mt: 4, color: 'text.secondary' }}
+              >
+                No habits have been added yet. Click the + button below to add your first habit!
+              </Typography>
+            ) : (
+              <HabitList habits={habits} onDelete={refreshHabits} />
+            )}
+          </>
         )}
         <Fab 
           color="primary" 
