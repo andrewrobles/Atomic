@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Container, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HabitList from '../components/HabitList';
+import NewHabitDialog from '../components/NewHabitDialog';
 import api from '../api';
 
 function Main() {
   const [habits, setHabits] = useState([]);
   const [error, setError] = useState(null);
+  const [openNewHabit, setOpenNewHabit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +44,14 @@ function Main() {
     localStorage.removeItem('userPassword');
   };
 
+  const handleOpenNewHabit = () => {
+    setOpenNewHabit(true);
+  };
+
+  const handleCloseNewHabit = () => {
+    setOpenNewHabit(false);
+  };
+
   return (
     <div>
       {/* Sign Out Button */}
@@ -58,6 +68,7 @@ function Main() {
         <Fab 
           color="primary" 
           aria-label="add"
+          onClick={handleOpenNewHabit}
           sx={{
             position: 'fixed',
             bottom: 16,
@@ -72,6 +83,11 @@ function Main() {
         >
           <AddIcon />
         </Fab>
+        <NewHabitDialog
+          open={openNewHabit}
+          onClose={handleCloseNewHabit}
+          onSave={refreshHabits}
+        />
       </Container>
     </div>
   );
