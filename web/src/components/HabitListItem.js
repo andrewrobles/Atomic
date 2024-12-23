@@ -29,7 +29,10 @@ const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkN
           backgroundColor: 'white', 
           color: 'black',
           marginBottom: '1px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: '#fafafa', // Very slightly darker shade when hovered
+          }
         }}
         onClick={() => handleOpenDetail(item)}
       >
