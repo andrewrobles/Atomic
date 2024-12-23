@@ -5,12 +5,14 @@ import List from '@mui/material/List';
 import HabitActionsDialog from './HabitActionsDialog';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 import HabitListItem from './HabitListItem';
+import HabitDetailDialog from './HabitDetailDialog';
 import api from '../api';
 
 const HabitList = (props) => {
   const [openHabitActions, setOpenHabitActions] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
+  const [openHabitDetail, setOpenHabitDetail] = useState(false);
 
   const handleOpen = (habit) => {
     setSelectedHabit(habit);  
@@ -19,6 +21,16 @@ const HabitList = (props) => {
 
   const handleClose = () => {
     setOpenHabitActions(false);
+    setSelectedHabit(null);
+  };
+
+  const handleOpenDetail = (habit) => {
+    setSelectedHabit(habit);
+    setOpenHabitDetail(true);
+  };
+
+  const handleCloseDetail = () => {
+    setOpenHabitDetail(false);
     setSelectedHabit(null);
   };
 
@@ -49,17 +61,26 @@ const HabitList = (props) => {
             key={index}
             item={item}
             onOpen={handleOpen}
+            handleOpenDetail={handleOpenDetail}
             onMarkComplete={handleMarkComplete}
             onMarkNotComplete={handleMarkNotComplete}
           />
         ))}
       </List>
+
+      <HabitDetailDialog
+        open={openHabitDetail}
+        onClose={handleCloseDetail}
+        habit={selectedHabit}
+        onOpenActions={handleOpen}
+      />
       
       <HabitActionsDialog 
         open={openHabitActions}
         onClose={handleClose}
         onOpenConfirmDelete={handleOpenConfirmDelete}
       />
+
       <DeleteConfirmDialog
         open={openConfirmDelete}
         onClose={() => {

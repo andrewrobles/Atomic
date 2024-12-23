@@ -5,7 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 
-const HabitListItem = ({ item, onOpen, onMarkComplete, onMarkNotComplete }) => {
+const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkNotComplete }) => {
     const today = new Date().toISOString().split('T')[0];
     const [isCompleted, setIsCompleted] = useState(false);
 
@@ -29,17 +29,23 @@ const HabitListItem = ({ item, onOpen, onMarkComplete, onMarkNotComplete }) => {
           backgroundColor: 'white', 
           color: 'black',
           marginBottom: '1px',
+          cursor: 'pointer'
         }}
+        onClick={() => handleOpenDetail(item)}
       >
         <Checkbox 
           checked={isCompleted}
           onChange={handleCheckboxChange}
+          onClick={(e) => e.stopPropagation()} // Prevent ListItem click when clicking checkbox
         />
         <ListItemText primary={item.name} />
         <IconButton
           edge="end"
           aria-label="more"
-          onClick={() => onOpen(item)}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent ListItem click when clicking menu
+            onOpen(item);
+          }}
         >
           <MoreVertIcon fontSize="small" />
         </IconButton>
