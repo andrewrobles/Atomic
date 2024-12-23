@@ -69,6 +69,47 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+router.patch("/:id/:date", async (req, res) => {
+    const { password } = req.query;
+    const { done } = req.body;
+    const { id, date } = req.params;
+
+    if (password !== process.env.PASSWORD) {
+        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
+    }
+
+    if (typeof done !== 'boolean') {
+        return res.status(400).json({ error: "'done' must be a boolean value" });
+    }
+
+    // Validate date format (YYYY-MM-DD)
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(date)) {
+        return res.status(400).json({ error: "Date must be in YYYY-MM-DD format" });
+    }
+
+    try {
+        const result = await client.db("habitsdb").collection("habits").updateOne(
+            { _id: new mongodb.ObjectId(id) },
+            { 
+                $set: {
+                    [`completions.${date}`]: done
+                }
+            },
+            { upsert: true }
+        );
+        
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ error: "Habit not found" });
+        }
+
+        res.status(200).json({ message: "Habit completion status updated successfully" });
+    } catch (error) {
+        console.error("Error updating habit completion:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 main()
     .then(console.log)
     .catch(console.error)
