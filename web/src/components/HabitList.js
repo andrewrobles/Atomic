@@ -35,12 +35,10 @@ const HabitList = (props) => {
 
   const handleMarkComplete = async (habitId, date) => {
     await api.updateHabitCompletion(habitId, date, true);
-    await props.onDelete(); // Refresh habits list
   };
 
   const handleMarkNotComplete = async (habitId, date) => {
     await api.updateHabitCompletion(habitId, date, false);
-    await props.onDelete(); // Refresh habits list
   };
 
   return (
