@@ -21,3 +21,4 @@ test('formatDate returns the correct day format', () => {
     const result = format(dates);
     expect(result).toEqual(expected);
 });
+
