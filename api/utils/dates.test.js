@@ -1,23 +1,24 @@
 const { format } = require('./dates');
 
-test('formatDate returns the correct date format', () => {
+test('formatDate returns the correct day format', () => {
     const dates = [
         '2024-12-24',
     ]
     const expected = [{
-        'Dec': [
-            { date: 1, day: 'Sun', value: false }, { date: 2, day: 'Mon', value: false }, { date: 3, day: 'Tue', value: false },
-            { date: 4, day: 'Wed', value: false }, { date: 5, day: 'Thu', value: false }, { date: 6, day: 'Fri', value: false },
-            { date: 7, day: 'Sat', value: false }, { date: 8, day: 'Sun', value: false }, { date: 9, day: 'Mon', value: false },
-            { date: 10, day: 'Tue', value: false }, { date: 11, day: 'Wed', value: false }, { date: 12, day: 'Thu', value: false },
-            { date: 13, day: 'Fri', value: false }, { date: 14, day: 'Sat', value: false }, { date: 15, day: 'Sun', value: false },
-            { date: 16, day: 'Mon', value: false }, { date: 17, day: 'Tue', value: false }, { date: 18, day: 'Wed', value: false },
-            { date: 19, day: 'Thu', value: false }, { date: 20, day: 'Fri', value: false }, { date: 21, day: 'Sat', value: false },
-            { date: 22, day: 'Sun', value: false }, { date: 23, day: 'Mon', value: false }, { date: 24, day: 'Tue', value: true },
-            { date: 25, day: 'Wed', value: false }, { date: 26, day: 'Thu', value: false }, { date: 27, day: 'Fri', value: false },
-            { date: 28, day: 'Sat', value: false }, { date: 29, day: 'Sun', value: false }, { date: 30, day: 'Mon', value: false },
-            { date: 31, day: 'Tue', value: false }
-        ]
+        month: 'Dec',
+        days: [
+            { day: 1, weekday: 'Sun', value: false }, { day: 2, weekday: 'Mon', value: false }, { day: 3, weekday: 'Tue', value: false },
+            { day: 4, weekday: 'Wed', value: false }, { day: 5, weekday: 'Thu', value: false }, { day: 6, weekday: 'Fri', value: false },
+            { day: 7, weekday: 'Sat', value: false }, { day: 8, weekday: 'Sun', value: false }, { day: 9, weekday: 'Mon', value: false },
+            { day: 10, weekday: 'Tue', value: false }, { day: 11, weekday: 'Wed', value: false }, { day: 12, weekday: 'Thu', value: false },
+            { day: 13, weekday: 'Fri', value: false }, { day: 14, weekday: 'Sat', value: false }, { day: 15, weekday: 'Sun', value: false },
+            { day: 16, weekday: 'Mon', value: false }, { day: 17, weekday: 'Tue', value: false }, { day: 18, weekday: 'Wed', value: false },
+            { day: 19, weekday: 'Thu', value: false }, { day: 20, weekday: 'Fri', value: false }, { day: 21, weekday: 'Sat', value: false },
+            { day: 22, weekday: 'Sun', value: false }, { day: 23, weekday: 'Mon', value: false }, { day: 24, weekday: 'Tue', value: true },
+            { day: 25, weekday: 'Wed', value: false }, { day: 26, weekday: 'Thu', value: false }, { day: 27, weekday: 'Fri', value: false },
+            { day: 28, weekday: 'Sat', value: false }, { day: 29, weekday: 'Sun', value: false }, { day: 30, weekday: 'Mon', value: false },
+            { day: 31, weekday: 'Tue', value: false }
+        ],
     }]
     const result = format(dates);
     expect(result).toEqual(expected);

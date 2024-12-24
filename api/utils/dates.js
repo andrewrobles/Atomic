@@ -16,19 +16,20 @@ const format = (dates) => {
         const daysArray = [];
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = new Date(year, month, day);
-            const dayName = date.toLocaleString('en-US', { weekday: 'short' });
-            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const date = new Date(year, month, day)
+            const dayName = date.toLocaleString('en-US', { weekday: 'short' })
+            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
             
             daysArray.push({
-                date: day,
-                day: dayName,
+                day: day,
+                weekday: dayName,
                 value: dates.includes(dateString)
             });
         }
 
-        monthData[months[month]] = daysArray;
-        formattedDates.push(monthData);
+        monthData.month = months[month]
+        monthData.days = daysArray
+        formattedDates.push(monthData)
 
         month++;
         if (month > 11) {
