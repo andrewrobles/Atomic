@@ -1,6 +1,7 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
+const { format } = require("../utils/dates")
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -26,6 +27,9 @@ router.get("/", async (req, res) => {
 
     try {
         const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
+        habits.forEach(habit => {
+            habit.dates = format(habit.dates)
+        })
         res.status(200).json(habits);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
