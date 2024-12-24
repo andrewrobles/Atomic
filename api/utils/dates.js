@@ -19,28 +19,17 @@ const format = (dates) => {
             const date = new Date(year, month, day)
             const dayName = date.toLocaleString('en-US', { weekday: 'short' })
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-            
-            if (dayName === 'Sun') {
-                daysArray[0].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Mon') {
-                daysArray[1].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Tue') {
-                daysArray[2].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Wed') {
-                daysArray[3].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Thu') {
-                daysArray[4].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Fri') {
-                daysArray[5].push(dates.includes(dateString))
-            }
-            else if (dayName === 'Sat') {
-                daysArray[6].push(dates.includes(dateString))
-            }
+            const dateSet = new Set(dates);
+            const dayToIndex = {
+                'Sun': 0,
+                'Mon': 1, 
+                'Tue': 2,
+                'Wed': 3,
+                'Thu': 4,
+                'Fri': 5,
+                'Sat': 6
+            };
+            daysArray[dayToIndex[dayName]].push(dateSet.has(dateString));
         }
 
         monthData.year = year
