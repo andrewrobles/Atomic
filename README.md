@@ -1,6 +1,6 @@
-# Atomic
+# Habits
 
-Atomic is a web application designed to help users build and maintain positive daily routines. The application provides a straightforward interface where users can create a personalized list of habits they want to develop. Each day, users can mark their habits as complete or incomplete, allowing them to track their progress over time. The app features password protection to keep users' habit data private and secure.
+Habits is a web application designed to help users build and maintain positive daily routines. The application provides a straightforward interface where users can create a personalized list of habits they want to develop. Each day, users can mark their habits as complete or incomplete, allowing them to track their progress over time. The app features password protection to keep users' habit data private and secure.
 
 The application is built using React for the frontend interface and MongoDB for data storage, creating a responsive and reliable user experience. Whether you're trying to read more books, exercise regularly, or develop any other positive habit, this tool helps you stay accountable and monitor your progress.
 
