@@ -58,7 +58,7 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
                 <TextField
                     autoFocus
                     fullWidth
-                    label="Name your habit"
+                    label="Define your habit"
                     variant="standard"
                     value={habitName}
                     onChange={(e) => setHabitName(e.target.value)}
