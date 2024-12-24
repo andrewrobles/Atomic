@@ -17,14 +17,6 @@ async function main() {
     return 'done.';
 }
 
-/*
-AUTHENTICATION
-
-Endpoints require a query parameter `?password=<password>` otherwise it will   
-return 401 unauthorized. If the the password is not available in localStorage,
-then the user should be redirected to the login page.
-*/
-
 router.get("/", async (req, res) => {
     const { password } = req.query;
 
