@@ -10,57 +10,6 @@ import { useState, useEffect } from 'react';
 const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
     const [heatmapData, setHeatmapData] = useState([]);
 
-    useEffect(() => {
-        if (habit?.dates) {
-            // Get dates for last year
-            const today = new Date();
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(today.getFullYear() - 1);
-            
-            // Create array of all dates in the last year
-            const dates = [];
-            for (let d = new Date(oneYearAgo); d <= today; d.setDate(d.getDate() + 1)) {
-                const dateStr = d.toISOString().split('T')[0];
-                dates.push({
-                    date: dateStr,
-                    count: habit.dates.includes(dateStr) ? 1 : 0,
-                    dayOfWeek: d.getDay() // 0-6, where 0 is Sunday
-                });
-            }
-            setHeatmapData(dates.reverse()); // Reverse to get most recent first
-        }
-    }, [habit]);
-
-    // Group dates into weeks, padding first week with empty days if needed
-    const weeks = [];
-    let currentWeek = [];
-    
-    // Add empty days at the start to align with correct day of week
-    if (heatmapData.length > 0) {
-        const firstDay = (heatmapData[0].dayOfWeek + 6) % 7; // Convert Sunday=0 to Monday=0
-        for (let i = 0; i < firstDay; i++) {
-            currentWeek.push({ count: 0, dayOfWeek: i, date: '' });
-        }
-    }
-
-    heatmapData.forEach((day) => {
-        // Convert Sunday=0 to Monday=0 by shifting the day
-        const adjustedDay = {...day, dayOfWeek: (day.dayOfWeek + 6) % 7};
-        currentWeek.push(adjustedDay);
-        if (currentWeek.length === 7) {
-            weeks.push(currentWeek);
-            currentWeek = [];
-        }
-    });
-
-    // Pad the last week with empty days if needed
-    if (currentWeek.length > 0) {
-        while (currentWeek.length < 7) {
-            currentWeek.push({ count: 0, dayOfWeek: currentWeek.length, date: '' });
-        }
-        weeks.push(currentWeek);
-    }
-
     return (
         <Dialog
         open={open}
@@ -98,37 +47,44 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
             <Box sx={{ 
                 display: 'flex', 
                 justifyContent: 'center',
-                alignItems: 'center',
+                flexDirection: 'row',
                 height: '100%'
             }}>
-                <Box sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    gap: '2px', 
-                    padding: 2,
-                    maxWidth: 'fit-content'
-                }}>
-                    {weeks.map((week, weekIndex) => (
-                        <Box key={weekIndex} sx={{ display: 'flex', gap: '2px' }}>
-                            {week.map((day, dayIndex) => (
-                                <Box
-                                    key={`${weekIndex}-${dayIndex}`}
-                                    sx={{
-                                        width: '10px',
-                                        height: '10px',
-                                        backgroundColor: day.count ? '#196127' : '#ebedf0',
-                                        borderRadius: '2px'
-                                    }}
-                                    title={day.date ? `${day.date}: ${day.count ? 'Completed' : 'Not completed'}` : ''}
-                                />
-                            ))}
-                        </Box>
-                    ))}
-                </Box>
+                {habit?.calendar?.map((month, monthIndex) => (
+                <Heatmap key={`${monthIndex}`} month={month} />
+                ))}
             </Box>
         </DialogContent>
         </Dialog>
     );
 };
+
+const Heatmap = ({ month }) => {
+    return (
+        <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '2px', 
+            padding: 0.5,
+            maxWidth: 'fit-content'
+        }}>
+            {month?.days?.map((dayArray, dayIndex) => (
+                <Box key={dayIndex} sx={{ display: 'flex', flexDirection: 'row', gap: '2px' }}>
+                    {dayArray.map((completed, index) => (
+                        <Box 
+                            key={`${dayIndex}-${index}`} 
+                            sx={{ 
+                                width: '10px', 
+                                height: '10px', 
+                                backgroundColor: completed ? '#196127' : '#ebedf0', 
+                                borderRadius: '2px' 
+                            }} 
+                        />
+                    ))}
+                </Box>
+            ))}
+        </Box>
+    )
+}
 
 export default HabitDetailDialog;

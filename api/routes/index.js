@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
     try {
         const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
         habits.forEach(habit => {
-            habit.dates = format(habit.dates)
+            habit.calendar = format(habit.dates)
         })
         res.status(200).json(habits);
     } catch (error) {
