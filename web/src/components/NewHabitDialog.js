@@ -1,13 +1,12 @@
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import api from '../api';
 import { useState } from 'react';
 
@@ -27,6 +26,7 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
 
     return (
         <Dialog
+        fullScreen
         open={open}
         onClose={onClose}
         sx={{
@@ -36,37 +36,35 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
             },
         }}
         >
-        <DialogTitle>
-            <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-            }}
-            >
-            <Typography variant="h6">New habit</Typography>
-            <IconButton
-                aria-label="close"
-                onClick={onClose}
-                sx={{ color: 'gray' }}
-            >
-                <CloseIcon />
-            </IconButton>
-            </Box>
-        </DialogTitle>
-        <DialogContent>
-            <TextField
-                fullWidth
-                label="Habit name"
-                variant="standard"
-                value={habitName}
-                onChange={(e) => setHabitName(e.target.value)}
-            />
-        </DialogContent>
-        <DialogActions>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button onClick={handleSubmit}>Confirm</Button>
-        </DialogActions>
+            <AppBar sx={{ position: 'relative' }}>
+                <Toolbar>
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        onClick={onClose}
+                        aria-label="close"
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <Typography sx={{ ml: 2, flex: 1 }} variant="h6">
+                        New habit
+                    </Typography>
+                    <Button autoFocus color="inherit" onClick={handleSubmit}>
+                        Save
+                    </Button>
+                </Toolbar>
+            </AppBar>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    fullWidth
+                    label="Define your habit"
+                    variant="standard"
+                    value={habitName}
+                    onChange={(e) => setHabitName(e.target.value)}
+                    sx={{ mt: 2 }}
+                />
+            </DialogContent>
         </Dialog>
     );
 };
