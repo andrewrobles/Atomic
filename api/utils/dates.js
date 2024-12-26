@@ -1,16 +1,17 @@
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 const format = (dates) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const earliestMonth = dates[0].split('-')[1]
     const earliestYear = dates[0].split('-')[0]
     const formattedDates = []
     const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
 
     let year = parseInt(earliestYear);
     let month = parseInt(earliestMonth) - 1; // Convert to 0-based month index
 
-    while (year < currentYear || (year === currentYear && month <= currentMonth)) {
+    let monthCount = 1
+
+    while (monthCount <= 12) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const monthData = {};
         const daysArray = [[], [], [], [], [], [], []];
@@ -33,7 +34,7 @@ const format = (dates) => {
         }
 
         monthData.year = year
-        monthData.month = months[month]
+        monthData.month = MONTHS[month]
         monthData.days = daysArray
         formattedDates.push(monthData)
 
@@ -42,6 +43,7 @@ const format = (dates) => {
             month = 0;
             year++;
         }
+        monthCount += 1
     }
 
     return formattedDates;

@@ -1,0 +1,8 @@
+Return all months if habit is more than a year old
+Scroll through the resulting months
+Display total repetitions since start date
+Label months
+Label days
+Darken weekdays
+Put heatmap in a surrounding container
+

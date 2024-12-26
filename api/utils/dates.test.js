@@ -1,11 +1,11 @@
 const { format } = require('./dates');
 
 
-test('formatDate returns the correct day format', () => {
+test('test 1', () => {
     const dates = [
         '2024-12-24',
     ]
-    const expected = [{
+    const expected = {
         year: 2024,
         month: 'Dec',
         days: [
@@ -17,8 +17,15 @@ test('formatDate returns the correct day format', () => {
             [false, false, false, false],  // Fridays
             [false, false, false, false],  // Saturdays
         ]
-    }]
+    }
     const result = format(dates);
-    expect(result).toEqual(expected);
+    expect(result[0]).toEqual(expected);
 });
 
+test('test 2', () => {
+    const dates = [
+        '2024-12-24',
+    ]
+    const result = format(dates);
+    expect(result.length).toEqual(12);
+});
