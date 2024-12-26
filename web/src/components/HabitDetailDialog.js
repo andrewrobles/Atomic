@@ -82,7 +82,7 @@ const Heatmap = ({ month }) => {
                             sx={{ 
                                 width: '10px', 
                                 height: '10px', 
-                                backgroundColor: completed ? '#196127' : '#ebedf0', 
+                                backgroundColor: completed === null ? 'transparent' : completed ? '#196127' : '#ebedf0',
                                 borderRadius: '2px' 
                             }} 
                         />

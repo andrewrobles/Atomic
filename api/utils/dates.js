@@ -17,7 +17,7 @@ const format = (dates) => {
     const max_months = Math.max(12, getMonthsDifference(earliestDate, latestDate))
 
     let monthCount = 1
-    
+
 
     while (monthCount <= max_months) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -31,7 +31,7 @@ const format = (dates) => {
             const dateSet = new Set(dates);
             const dayToIndex = {
                 'Sun': 0,
-                'Mon': 1, 
+                'Mon': 1,
                 'Tue': 2,
                 'Wed': 3,
                 'Thu': 4,
@@ -41,6 +41,14 @@ const format = (dates) => {
             daysArray[dayToIndex[dayName]].push(dateSet.has(dateString));
         }
 
+        // if the first day of the month falls in the middle of the week, add null to the end of each array before this day
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        if (firstDayOfMonth > 0) {
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                daysArray[i].unshift(null)
+            }
+        }
+        
         // if the last day of the month falls in the middle of the week, add null to the end of each array after this day
         const lastDayOfMonth = new Date(year, month + 1, 0).getDay();
         if (lastDayOfMonth > 0) {
@@ -68,8 +76,8 @@ const format = (dates) => {
 const getMonthsDifference = (date1, date2) => {
     const yearDiff = date2.getFullYear() - date1.getFullYear();
     const monthDiff = date2.getMonth() - date1.getMonth();
-  
+
     return yearDiff * 12 + monthDiff;
-  }
+}
 
 module.exports = { format };

@@ -3,4 +3,3 @@ Label months
 Label days
 Darken weekdays
 Put heatmap in a surrounding container
-Verify month shapes
