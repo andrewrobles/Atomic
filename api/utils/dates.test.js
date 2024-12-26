@@ -29,3 +29,12 @@ test('test 2', () => {
     const result = format(dates);
     expect(result.length).toEqual(12);
 });
+
+test('test 3', () => {
+    const dates = [
+        '2024-12-24',
+        '2026-1-1'
+    ]
+    const result = format(dates);
+    expect(result.length).toEqual(13);
+});

@@ -3,15 +3,23 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const format = (dates) => {
     const earliestMonth = dates[0].split('-')[1]
     const earliestYear = dates[0].split('-')[0]
+    const earliestDay = dates[0].split('-')[2]
     const formattedDates = []
-    const today = new Date();
 
     let year = parseInt(earliestYear);
     let month = parseInt(earliestMonth) - 1; // Convert to 0-based month index
 
-    let monthCount = 1
+    const latestMonth = dates[dates.length - 1].split('-')[1]
+    const latestYear = dates[dates.length - 1].split('-')[0]
+    const latestDay = dates[dates.length - 1].split('-')[2]
+    const latestDate = new Date(latestYear, latestMonth, latestDay)
+    const earliestDate = new Date(earliestYear, earliestMonth, earliestDay)
+    const max_months = Math.max(12, getMonthsDifference(earliestDate, latestDate))
 
-    while (monthCount <= 12) {
+    let monthCount = 1
+    
+
+    while (monthCount <= max_months) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const monthData = {};
         const daysArray = [[], [], [], [], [], [], []];
@@ -48,5 +56,12 @@ const format = (dates) => {
 
     return formattedDates;
 }
+
+const getMonthsDifference = (date1, date2) => {
+    const yearDiff = date2.getFullYear() - date1.getFullYear();
+    const monthDiff = date2.getMonth() - date1.getMonth();
+  
+    return yearDiff * 12 + monthDiff;
+  }
 
 module.exports = { format };
