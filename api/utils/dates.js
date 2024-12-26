@@ -41,6 +41,14 @@ const format = (dates) => {
             daysArray[dayToIndex[dayName]].push(dateSet.has(dateString));
         }
 
+        // if the last day of the month falls in the middle of the week, add null to the end of each array after this day
+        const lastDayOfMonth = new Date(year, month + 1, 0).getDay();
+        if (lastDayOfMonth > 0) {
+            for (let i = lastDayOfMonth + 1; i < daysArray.length; i++) {
+                daysArray[i].push(null)
+            }
+        }
+
         monthData.year = year
         monthData.month = MONTHS[month]
         monthData.days = daysArray

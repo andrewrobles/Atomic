@@ -12,10 +12,10 @@ test('test 1', () => {
             [false, false, false, false, false], // Sundays
             [false, false, false, false, false], // Mondays
             [false, false, false, true, false],  // Tuesdays
-            [false, false, false, false],  // Wednesdays
-            [false, false, false, false],  // Thursdays
-            [false, false, false, false],  // Fridays
-            [false, false, false, false],  // Saturdays
+            [false, false, false, false, null],  // Wednesdays
+            [false, false, false, false, null],  // Thursdays
+            [false, false, false, false, null],  // Fridays
+            [false, false, false, false, null],  // Saturdays
         ]
     }
     const result = format(dates);
