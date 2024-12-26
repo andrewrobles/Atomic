@@ -33,7 +33,7 @@ test('test 2', () => {
 test('test 3', () => {
     const dates = [
         '2024-12-24',
-        '2026-1-1'
+        '2026-01-01'
     ]
     const result = format(dates);
     expect(result.length).toEqual(13);
@@ -47,13 +47,13 @@ test('test 2', () => {
         year: 2025,
         month: 'Jan',
         days: [
-            [null, false, false, false, false], // Sundays
-            [null, false, false, false, false], // Mondays
+            [null, false, false, false, false],  // Sundays
+            [null, false, false, false, false],  // Mondays
             [null, false, false, false, false],  // Tuesdays
-            [true, false, false, false, false],  // Wed 
-            [false, false, false, false, false],  // Thu 
-            [false, false, false, false, false],  // Fri 
-            [false, false, false, false, null],  // Sat 
+            [true, false, false, false, false],  // Wednesdays
+            [false, false, false, false, false], // Thursdays
+            [false, false, false, false, false], // Fridays 
+            [false, false, false, false, null],  // Saturdays 
         ]
     }
     const result = format(dates);
