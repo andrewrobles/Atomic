@@ -17,7 +17,7 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
         fullScreen
         sx={{
             '& .MuiDialog-paper': {
-                width: '100%',
+                width: '550px',
                 height: '100%',
                 margin: 0,
                 maxWidth: 'none',
@@ -44,15 +44,21 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
             </Box>
         </DialogTitle>
         <DialogContent>
-            <Box sx={{ 
-                display: 'flex', 
-                justifyContent: 'center',
-                flexDirection: 'row',
-                height: '100%'
+            <Box sx={{
+                width: '100%',
+                overflowX: 'auto'
             }}>
-                {habit?.calendar?.map((month, monthIndex) => (
-                <Heatmap key={`${monthIndex}`} month={month} />
-                ))}
+                <Box sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'flex-start',
+                    flexDirection: 'row',
+                    height: '100%',
+                    minWidth: 'fit-content'
+                }}>
+                    {habit?.calendar?.map((month, monthIndex) => (
+                    <Heatmap key={`${monthIndex}`} month={month} />
+                    ))}
+                </Box>
             </Box>
         </DialogContent>
         </Dialog>

@@ -1,6 +1,3 @@
-
-Verify month shapes
-Scroll through the resulting months
 Display total repetitions since start date
 Label months
 Label days
