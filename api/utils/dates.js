@@ -31,8 +31,9 @@ const formatDates = dates => {
                 'Fri': 5,
                 'Sat': 6
             };
+
             if (earliestDate < date ) {
-                daysArray[dayToIndex[dayName]].push(true);
+                daysArray[dayToIndex[dayName]].push(!dateSet.has(dateString));
             } else {
                 daysArray[dayToIndex[dayName]].push(false);
             }
@@ -137,7 +138,7 @@ const format = (dates) => {
 }
 
 const parseDate = date => {
-    const month = date.split('-')[1]
+    const month = date.split('-')[1] - 1
     const year = date.split('-')[0]
     const day = date.split('-')[2]
     return new Date(year, month, day)
