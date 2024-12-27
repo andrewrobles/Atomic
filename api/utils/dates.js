@@ -1,10 +1,6 @@
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const formatDates = dates => {
-    return getDateShapes(dates)
-}
-
-const getDateShapes = dates => {
     const formattedDates = []
 
     const earliestDate = parseDate(dates[0]) 
@@ -35,7 +31,11 @@ const getDateShapes = dates => {
                 'Fri': 5,
                 'Sat': 6
             };
-            daysArray[dayToIndex[dayName]].push(false);
+            if (earliestDate < date ) {
+                daysArray[dayToIndex[dayName]].push(true);
+            } else {
+                daysArray[dayToIndex[dayName]].push(false);
+            }
         }
 
         // if the first day of the month falls in the middle of the week, add null to the end of each array before this day
