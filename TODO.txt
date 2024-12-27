@@ -1,4 +1,3 @@
-unlogged days should be green
 display total repetitions since start date
 label months
 label days
