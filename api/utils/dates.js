@@ -1,23 +1,18 @@
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const format = (dates) => {
-    const earliestMonth = dates[0].split('-')[1]
-    const earliestYear = dates[0].split('-')[0]
-    const earliestDay = dates[0].split('-')[2]
     const formattedDates = []
 
-    let year = parseInt(earliestYear);
-    let month = parseInt(earliestMonth) - 1; // Convert to 0-based month index
-
-    const latestMonth = dates[dates.length - 1].split('-')[1]
-    const latestYear = dates[dates.length - 1].split('-')[0]
-    const latestDay = dates[dates.length - 1].split('-')[2]
-    const latestDate = new Date(latestYear, latestMonth, latestDay)
-    const earliestDate = new Date(earliestYear, earliestMonth, earliestDay)
-    const max_months = Math.max(12, getMonthsDifference(earliestDate, latestDate))
+    const earliestDate = parseDate(dates[0]) 
+    const latestDate = parseDate(dates[dates.length - 1])
 
     let monthCount = 1
+    const earliestDateString = dates[0]
+    let month = parseInt(earliestDateString.split('-')[1]) - 1; // Convert to 0-based month index
+    let year = parseInt(earliestDateString.split('-')[0]);
+    const max_months = Math.max(12, getMonthsDifference(earliestDate, latestDate))
 
+    
 
     while (monthCount <= max_months) {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -71,6 +66,13 @@ const format = (dates) => {
     }
 
     return formattedDates;
+}
+
+const parseDate = date => {
+    const month = date.split('-')[1]
+    const year = date.split('-')[0]
+    const day = date.split('-')[2]
+    return new Date(year, month, day)
 }
 
 const getMonthsDifference = (date1, date2) => {
