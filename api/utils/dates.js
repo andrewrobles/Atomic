@@ -1,6 +1,6 @@
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const formatDates = dates => {
+const formatDates = (dates, today) => {
     const formattedDates = []
 
     const earliestDate = parseDate(dates[0]) 
@@ -32,7 +32,8 @@ const formatDates = dates => {
                 'Sat': 6
             };
 
-            if (earliestDate < date ) {
+            const todayDate = parseDate(today)
+            if (earliestDate < date && date < todayDate) {
                 daysArray[dayToIndex[dayName]].push(!dateSet.has(dateString));
             } else {
                 daysArray[dayToIndex[dayName]].push(false);
