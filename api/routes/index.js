@@ -1,7 +1,7 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
-const { format } = require("../utils/dates")
+const { formatDates } = require("../utils/dates")
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -27,8 +27,14 @@ router.get("/", async (req, res) => {
 
     try {
         const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const dd = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${yyyy}-${mm}-${dd}`;
+        console.log(formattedDate)
         habits.forEach(habit => {
-            habit.calendar = format(habit.dates)
+            habit.calendar = formatDates(habit.dates, formattedDate)
         })
         res.status(200).json(habits);
     } catch (error) {
