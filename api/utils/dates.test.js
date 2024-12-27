@@ -1,4 +1,23 @@
-const { format } = require('./dates');
+const { format, formatDates } = require('./dates');
+
+test('format dates', () => {
+    const dates = ['2024-12-31']
+    const result = formatDates(dates)
+    const expected = {
+        year: 2024,
+        month: 'Dec',
+        days: [
+            [false, false, false, false, false], // Sundays
+            [false, false, false, false, false], // Mondays
+            [false, false, false, false, false],  // Tuesdays
+            [false, false, false, false, null],  // Wednesdays
+            [false, false, false, false, null],  // Thursdays
+            [false, false, false, false, null],  // Fridays
+            [false, false, false, false, null],  // Saturdays
+        ]
+    }
+    expect(result[0]).toEqual(expected)
+})
 
 
 test('test 1', () => {
