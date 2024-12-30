@@ -1,5 +1,7 @@
 const { formatDates } = require('./dates');
 
+test('get')
+
 test('formatDates logs days', () => {
     const dates = ['2024-12-29', '2024-12-31',]
     const result = formatDates(dates, '2025-01-01')

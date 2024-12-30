@@ -5,11 +5,10 @@ import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useState, useEffect } from 'react';
+import Heatmap from './Heatmap';
 
-const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
-    const [heatmapData, setHeatmapData] = useState([]);
 
+const HabitDetailDialog = ({ open, onClose, habit }) => {
     return (
         <Dialog
         open={open}
@@ -55,9 +54,7 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
                     height: '100%',
                     minWidth: 'fit-content'
                 }}>
-                    {habit?.calendar?.map((month, monthIndex) => (
-                    <Heatmap key={`${monthIndex}`} month={month} />
-                    ))}
+                    <Heatmap calendar={habit?.calendar} />
                 </Box>
             </Box>
         </DialogContent>
@@ -65,32 +62,6 @@ const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
     );
 };
 
-const Heatmap = ({ month }) => {
-    return (
-        <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: '2px', 
-            padding: 0.5,
-            maxWidth: 'fit-content'
-        }}>
-            {month?.days?.map((dayArray, dayIndex) => (
-                <Box key={dayIndex} sx={{ display: 'flex', flexDirection: 'row', gap: '2px' }}>
-                    {dayArray.map((completed, index) => (
-                        <Box 
-                            key={`${dayIndex}-${index}`} 
-                            sx={{ 
-                                width: '10px', 
-                                height: '10px', 
-                                backgroundColor: completed === null ? 'transparent' : completed ? '#196127' : '#ebedf0',
-                                borderRadius: '2px' 
-                            }} 
-                        />
-                    ))}
-                </Box>
-            ))}
-        </Box>
-    )
-}
+
 
 export default HabitDetailDialog;
