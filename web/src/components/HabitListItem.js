@@ -6,7 +6,12 @@ import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 
 const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkNotComplete }) => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toLocaleDateString('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\//g, '-');
+
     const [isCompleted, setIsCompleted] = useState(false);
 
     useEffect(() => {
