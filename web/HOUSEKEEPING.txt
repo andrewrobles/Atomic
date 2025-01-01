@@ -1,1 +1,0 @@
-create a common dialog for all types of dialogs to reuse
