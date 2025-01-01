@@ -4,6 +4,7 @@ import { Button, Container, Fab, CircularProgress, Typography } from '@mui/mater
 import AddIcon from '@mui/icons-material/Add';
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
+import Error from '../components/Error';
 import api from '../api';
 
 function Main() {
@@ -18,11 +19,15 @@ function Main() {
       try {
         const response = await api.getHabits();
         setHabits(response.data);
+        setError(null);
       } catch (err) {
         if (err.response && err.response.status === 401) {
           navigate('/auth');
         } else {
-          setError(err.message);
+          setError({
+            title: 'Failed to load habits',
+            message: err.message
+          });
         }
       } finally {
         setLoading(false);
@@ -37,8 +42,12 @@ function Main() {
     try {
       const response = await api.getHabits();
       setHabits(response.data);
+      setError(null);
     } catch (err) {
-      setError(err.message);
+      setError({
+        title: 'Failed to refresh habits',
+        message: err.message
+      });
     } finally {
       setLoading(false);
     }
@@ -58,12 +67,15 @@ function Main() {
     setOpenNewHabit(false);
   };
 
+  if (error) {
+    return <Error title={error.title} message={error.message} />;
+  }
+
   return (
     <div>
       {/* Sign Out Button */}
 
       {/* Main Content */}
-      {error && <p className="error">Error: {error}</p>}
       <Container maxWidth="sm">
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
           <Button color="inherit" onClick={handleSignOut}>
