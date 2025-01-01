@@ -1,1 +1,0 @@
-if i check/uncheck a habit i should see the changes in the heat map without having to refresh the page
