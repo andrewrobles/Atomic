@@ -6,9 +6,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Heatmap from './Heatmap';
+import DeleteButton from './DeleteButton';
 
-
-const HabitDetailDialog = ({ open, onClose, habit }) => {
+const HabitDetailDialog = ({ open, onClose, habit, onOpenConfirmDelete }) => {
     return (
         <Dialog
         open={open}
@@ -56,6 +56,17 @@ const HabitDetailDialog = ({ open, onClose, habit }) => {
                 }}>
                     <Heatmap calendar={habit?.calendar} />
                 </Box>
+            </Box>
+            <Box sx={{
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 2,
+                display: 'flex',
+                justifyContent: 'center'
+            }}>
+                <DeleteButton onOpenConfirmDelete={onOpenConfirmDelete}/>
             </Box>
         </DialogContent>
         </Dialog>
