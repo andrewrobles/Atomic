@@ -1,7 +1,7 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
-const { formatDates } = require("../utils/dates")
+const { getCalendar } = require("../utils/habits")
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -12,7 +12,7 @@ async function main() {
         console.log("MongoDB connected successfully!");
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
-        process.exit(1); 
+        process.exit(1);
     }
 
     return 'done.';
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
         const formattedDate = `${yyyy}-${mm}-${dd}`;
         console.log(formattedDate)
         habits.forEach(habit => {
-            habit.calendar = formatDates(habit.dates, formattedDate)
+            habit.calendar = getCalendar(habit.dates, formattedDate)
         })
         res.status(200).json(habits);
     } catch (error) {
@@ -114,7 +114,7 @@ router.patch("/:id/:date", async (req, res) => {
             { _id: new mongodb.ObjectId(id) },
             updateOperation
         );
-        
+
         if (result.matchedCount === 0) {
             return res.status(404).json({ error: "Habit not found" });
         }

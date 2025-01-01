@@ -1,3 +1,1 @@
-use habits.months instead of habits.dates for heatmap data
-refactor dates.js to be habits.js that contains a get month function
 create a common dialog for all types of dialogs to reuse

@@ -1,9 +1,9 @@
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const formatDates = (dates, today) => {
+const getCalendar = (dates, today) => {
     const formattedDates = []
 
-    const earliestDate = parseDate(dates[0]) 
+    const earliestDate = parseDate(dates[0])
     const latestDate = parseDate(dates[dates.length - 1])
 
     let monthCount = 1
@@ -47,7 +47,7 @@ const formatDates = (dates, today) => {
                 daysArray[i].unshift(null)
             }
         }
-        
+
         // if the last day of the month falls in the middle of the week, add null to the end of each array after this day
         const lastDayOfMonth = new Date(year, month + 1, 0).getDay();
         if (lastDayOfMonth > 0) {
@@ -70,7 +70,7 @@ const formatDates = (dates, today) => {
     }
 
     return formattedDates;
-} 
+}
 
 const parseDate = date => {
     const month = date.split('-')[1] - 1
@@ -86,4 +86,4 @@ const getMonthsDifference = (date1, date2) => {
     return yearDiff * 12 + monthDiff;
 }
 
-module.exports = { formatDates };
+module.exports = { getCalendar };

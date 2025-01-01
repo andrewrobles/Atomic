@@ -1,10 +1,8 @@
-const { formatDates } = require('./dates');
+const { getCalendar } = require('./habits');
 
-test('get')
-
-test('formatDates logs days', () => {
+test('getCalendar logs days', () => {
     const dates = ['2024-12-29', '2024-12-31',]
-    const result = formatDates(dates, '2025-01-01')
+    const result = getCalendar(dates, '2025-01-01')
     const december = {
         year: 2024,
         month: 'Dec',
@@ -36,7 +34,7 @@ test('formatDates logs days', () => {
     expect(result[1]).toEqual(january)
 })
 
-test('formatDates handles months starting in the middle of the week', () => {
+test('getCalendar handles months starting in the middle of the week', () => {
     const dates = [
         '2025-01-31',
     ]
@@ -53,24 +51,24 @@ test('formatDates handles months starting in the middle of the week', () => {
             [false, false, false, false, null],  // Saturdays 
         ]
     }
-    const result = formatDates(dates, '2025-01-01');
+    const result = getCalendar(dates, '2025-01-01');
     expect(result[0]).toEqual(expected);
 });
 
-test('formatDates handles habits less than a year old', () => {
+test('getCalendar handles habits less than a year old', () => {
     const dates = [
         '2024-12-24',
     ]
-    const result = formatDates(dates, '2025-01-01');
+    const result = getCalendar(dates, '2025-01-01');
     expect(result.length).toEqual(12);
 });
 
-test('formatDates handles habits more than a year old', () => {
+test('getCalendar handles habits more than a year old', () => {
     const dates = [
         '2024-12-24',
         '2026-01-01'
     ]
-    const result = formatDates(dates, '2025-01-01');
+    const result = getCalendar(dates, '2025-01-01');
     expect(result.length).toEqual(13);
 });
 
