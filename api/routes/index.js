@@ -32,7 +32,6 @@ router.get("/", async (req, res) => {
         const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const dd = String(today.getDate()).padStart(2, '0');
         const formattedDate = `${yyyy}-${mm}-${dd}`;
-        console.log(formattedDate)
         habits.forEach(habit => {
             habit.calendar = getCalendar(habit.dates, formattedDate)
         })
@@ -55,7 +54,7 @@ router.post("/", async (req, res) => {
     }
 
     try {
-        const result = await client.db("habitsdb").collection("habits").insertOne({ name });
+        const result = await client.db("habitsdb").collection("habits").insertOne({ name, dates: [] });
         res.status(201).json({ message: "Habit created successfully", id: result.insertedId });
     } catch (error) {
         console.error("Error creating habit:", error);

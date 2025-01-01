@@ -1,5 +1,25 @@
 const { getCalendar } = require('./habits');
 
+test('getCalendar handles empty dates', () => {
+    const dates = []
+    const result = getCalendar(dates, '2025-01-01')
+    const january = {
+        year: 2025,
+        month: 'Jan',
+        days: [
+            [null, false, false, false, false],  // Sundays
+            [null, false, false, false, false],  // Mondays
+            [null, false, false, false, false],  // Tuesdays
+            [false, false, false, false, false],  // Wednesdays
+            [false, false, false, false, false], // Thursdays
+            [false, false, false, false, false], // Fridays 
+            [false, false, false, false, null],  // Saturdays 
+        ]
+    }
+    expect(result.length).toEqual(12)
+    expect(result[0]).toEqual(january)
+})
+
 test('getCalendar logs days', () => {
     const dates = ['2024-12-29', '2024-12-31',]
     const result = getCalendar(dates, '2025-01-01')
