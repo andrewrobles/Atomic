@@ -1,3 +1,9 @@
+import {
+  Box,
+  Button,
+  Container,
+} from '@mui/material';
+
 // Auth service
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
@@ -23,8 +29,11 @@ const signInWithGoogle = () => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
+
+    console.log(`token: ${token}`)
     // The signed-in user info.
     const user = result.user;
+    console.log(`user: ${JSON.stringify(user)}`)
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
@@ -41,12 +50,31 @@ const signInWithGoogle = () => {
 }
 
 
-const Firebase = () => {
+const GoogleAuth = () => {
   return (
-    <>
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
-    </>
+    <Container maxWidth="sm">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+        padding={2}
+        sx={{backgroundColor: 'white'}} 
+      >
+      
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={signInWithGoogle}
+          sx={{ marginTop: 2 }}
+        >
+         Sign in with Google 
+        </Button>
+      </Box>
+    </Container>
   )
 }
 
-export default Firebase 
+export default GoogleAuth 
