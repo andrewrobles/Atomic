@@ -1,7 +1,7 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
-const { getCalendar } = require("../utils/habits")
+const heatmap = require("../utils/heatmap")
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
         const dd = String(today.getDate()).padStart(2, '0');
         const formattedDate = `${yyyy}-${mm}-${dd}`;
         habits.forEach(habit => {
-            habit.calendar = getCalendar(habit.dates, formattedDate)
+            habit.calendar = heatmap(habit.dates, formattedDate)
         })
         res.status(200).json(habits);
     } catch (error) {

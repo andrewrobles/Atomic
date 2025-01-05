@@ -1,8 +1,8 @@
-const { getCalendar } = require('./habits');
+const heatmap = require('./index');
 
-test('getCalendar handles empty dates', () => {
+test('handles empty dates', () => {
     const dates = []
-    const result = getCalendar(dates, '2025-01-01')
+    const result = heatmap(dates, '2025-01-01')
     const january = {
         year: 2025,
         month: 'Jan',
@@ -20,9 +20,9 @@ test('getCalendar handles empty dates', () => {
     expect(result[0]).toEqual(january)
 })
 
-test('getCalendar logs days', () => {
+test('logs days', () => {
     const dates = ['2024-12-29', '2024-12-31',]
-    const result = getCalendar(dates, '2025-01-01')
+    const result = heatmap(dates, '2025-01-01')
     const december = {
         year: 2024,
         month: 'Dec',
@@ -54,7 +54,7 @@ test('getCalendar logs days', () => {
     expect(result[1]).toEqual(january)
 })
 
-test('getCalendar handles months starting in the middle of the week', () => {
+test('handles months starting in the middle of the week', () => {
     const dates = [
         '2025-01-31',
     ]
@@ -71,24 +71,24 @@ test('getCalendar handles months starting in the middle of the week', () => {
             [false, false, false, false, null],  // Saturdays 
         ]
     }
-    const result = getCalendar(dates, '2025-01-01');
+    const result = heatmap(dates, '2025-01-01');
     expect(result[0]).toEqual(expected);
 });
 
-test('getCalendar handles habits less than a year old', () => {
+test('handles habits less than a year old', () => {
     const dates = [
         '2024-12-24',
     ]
-    const result = getCalendar(dates, '2025-01-01');
+    const result = heatmap(dates, '2025-01-01');
     expect(result.length).toEqual(12);
 });
 
-test('getCalendar handles habits more than a year old', () => {
+test('handles habits more than a year old', () => {
     const dates = [
         '2024-12-24',
         '2026-01-01'
     ]
-    const result = getCalendar(dates, '2025-01-01');
+    const result = heatmap(dates, '2025-01-01');
     expect(result.length).toEqual(13);
 });
 
