@@ -1,10 +1,11 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import { useState, useEffect } from 'react';
 
 const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkNotComplete }) => {
-    // TODO: Move this function to utils
     const today = new Date().toLocaleDateString('en-CA', {
       year: 'numeric',
       month: '2-digit',
@@ -46,6 +47,16 @@ const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkN
           onClick={(e) => e.stopPropagation()} // Prevent ListItem click when clicking checkbox
         />
         <ListItemText primary={item.name} />
+        <IconButton
+          edge="end"
+          aria-label="more"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent ListItem click when clicking menu
+            onOpen(item);
+          }}
+        >
+          <MoreVertIcon fontSize="small" />
+        </IconButton>
       </ListItem>
     );
 };

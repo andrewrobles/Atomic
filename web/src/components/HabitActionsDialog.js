@@ -3,24 +3,21 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Heatmap from './Heatmap';
 
-
-const HabitDetailDialog = ({ open, onClose, habit }) => {
+// TODO: Make a generic dialogue 
+const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
     return (
         <Dialog
         open={open}
         onClose={onClose}
-        fullScreen
         sx={{
             '& .MuiDialog-paper': {
-                width: '550px',
-                height: '100%',
-                margin: 0,
-                maxWidth: 'none',
-                maxHeight: 'none'
+            width: '550px', // Set the width of the dialog
+            maxWidth: 'none', // Disable default max width restriction
             },
         }}
         >
@@ -32,7 +29,7 @@ const HabitDetailDialog = ({ open, onClose, habit }) => {
                 justifyContent: 'space-between',
             }}
             >
-            <Typography variant="h6">{habit?.name}</Typography>
+            <Typography variant="h6">Habit actions</Typography>
             <IconButton
                 aria-label="close"
                 onClick={onClose}
@@ -43,25 +40,21 @@ const HabitDetailDialog = ({ open, onClose, habit }) => {
             </Box>
         </DialogTitle>
         <DialogContent>
-            <Box sx={{
-                width: '100%',
-                overflowX: 'auto'
-            }}>
-                <Box sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'flex-start',
-                    flexDirection: 'row',
-                    height: '100%',
-                    minWidth: 'fit-content'
-                }}>
-                    <Heatmap calendar={habit?.calendar} />
-                </Box>
-            </Box>
+            <>
+                <Button
+                variant="text"
+                startIcon={<DeleteIcon />}
+                onClick={onOpenConfirmDelete}
+                sx={{
+                    color: 'red', // Red text for delete button
+                }}
+                >
+                Delete
+                </Button>
+            </>
         </DialogContent>
         </Dialog>
-    );
+);
 };
 
-
-
-export default HabitDetailDialog;
+export default HabitActionsDialog;
