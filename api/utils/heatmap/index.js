@@ -54,10 +54,7 @@ const heatmap = (dates, today) => {
     return matrix;
 }
 
-const parseDate = (date, today) => {
-    if (date === undefined) {
-        date = today
-    }
+const parseDate = date => {
     const month = date.split('-')[1] - 1
     const year = date.split('-')[0]
     const day = date.split('-')[2]

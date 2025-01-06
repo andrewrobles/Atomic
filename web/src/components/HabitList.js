@@ -14,12 +14,12 @@ const HabitList = (props) => {
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const [openHabitDetail, setOpenHabitDetail] = useState(false);
 
-  const handleOpen = (habit) => {
+  const handleOpenHabitActions = (habit) => {
     setSelectedHabit(habit);  
     setOpenHabitActions(true);
   };
 
-  const handleClose = () => {
+  const handleCloseHabitActions = () => {
     setOpenHabitActions(false);
     setSelectedHabit(null);
   };
@@ -42,7 +42,7 @@ const HabitList = (props) => {
     await api.deleteHabit(selectedHabit._id);
     await props.onDelete();
     setOpenConfirmDelete(false)
-    handleClose();
+    handleCloseHabitActions();
   };
 
   const handleMarkComplete = async (habitId, date) => {
@@ -60,7 +60,7 @@ const HabitList = (props) => {
           <HabitListItem 
             key={index}
             item={item}
-            onOpen={handleOpen}
+            onOpen={handleOpenHabitActions}
             handleOpenDetail={handleOpenDetail}
             onMarkComplete={handleMarkComplete}
             onMarkNotComplete={handleMarkNotComplete}
@@ -72,12 +72,12 @@ const HabitList = (props) => {
         open={openHabitDetail}
         onClose={handleCloseDetail}
         habit={selectedHabit}
-        onOpenActions={handleOpen}
+        onOpenActions={handleOpenHabitActions}
       />
       
       <HabitActionsDialog 
         open={openHabitActions}
-        onClose={handleClose}
+        onClose={handleCloseHabitActions}
         onOpenConfirmDelete={handleOpenConfirmDelete}
       />
 
@@ -89,7 +89,6 @@ const HabitList = (props) => {
         }}
         onDelete={handleDelete}
         habitName={selectedHabit?.name}
-        selectedHabit={selectedHabit}
       />
     </>
   );

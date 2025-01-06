@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 // TODO: add this to a route that can be accesssed from any page via redirect and also include a retry function
@@ -15,10 +15,10 @@ const Error = ({ title, message }) => {
     >
       <ErrorOutlineIcon sx={{ fontSize: 64, color: 'error.main' }} />
       <Typography variant="h5" align="center">
-        {title || 'Error'}
+        {message || 'Error'}
       </Typography>
       <Typography variant="body1" align="center" color="text.secondary">
-        {message || 'An error occurred. Please try again.'}
+        {title || 'An error occurred. Please try again.'}
       </Typography>
     </Box>
   );
