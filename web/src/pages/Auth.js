@@ -2,52 +2,76 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
-  TextField,
   Button,
   Container,
-} from '@mui/material';
-import api from '../api'; // Import the getHabits function
+} from '@mui/material'
+
+// Auth service
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBJbonEVB6grM13ZRYCy8N_xH8ENv1e8G0",
+  authDomain: "habits-e1ad9.firebaseapp.com",
+  projectId: "habits-e1ad9",
+  storageBucket: "habits-e1ad9.firebasestorage.app",
+  messagingSenderId: "91926125884",
+  appId: "1:91926125884:web:d4829ade798a40f5125239",
+  measurementId: "G-W0RNCEGKR9"
+}
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const provider = new GoogleAuthProvider()
 
 const Auth = () => {
-  const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // TODO: Use data from this API call in index page
-        const response = await api.getHabits();
-        if (response.status === 200) {
-          navigate('/'); // Navigate to the main page if already authenticated
+        const auth = getAuth()
+        const user = auth.currentUser
+        if (user) {
+            navigate('/')
         }
       } catch (err) {
         if (err.response && err.response.status !== 401) {
           setError('Unexpected server error.');
         }
-        // If 401, remain on the login page
       }
     };
 
     checkAuth();
   }, [navigate]);
 
-  const handleLogin = async () => {
-    try {
-      // Store the password in local storage
-      localStorage.setItem('userPassword', password);
-      console.log('Password stored in local storage:', password);
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
 
-      // Call getHabits to confirm authentication
-      const response = await api.getHabits();
-      if (response.status === 200) {
-        navigate('/'); // Navigate to the main page on success
-      }
-    } catch (err) {
-      setError('Invalid password or server error.');
-      console.error('Error during authentication:', err);
-    }
-  };
+        localStorage.setItem('token', token)
+        console.log(`token: ${token}`)
+
+        // The signed-in user info.
+        const user = result.user;
+        console.log(`user: ${JSON.stringify(user)}`)
+
+        if (user) {
+          navigate('/')
+        }
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorMessage = error.message;
+        setError(errorMessage)
+      });
+  }
 
   return (
     <Container maxWidth="sm">
@@ -58,26 +82,17 @@ const Auth = () => {
         justifyContent="center"
         minHeight="100vh"
         padding={2}
-        sx={{backgroundColor: 'white'}} 
+        sx={{ backgroundColor: 'white' }}
       >
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          margin="normal"
-        />
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <Button
           variant="contained"
           color="primary"
-          onClick={handleLogin}
+          onClick={signInWithGoogle}
           fullWidth
           sx={{ marginTop: 2 }}
         >
-          Submit
+          Sign in with Google
         </Button>
       </Box>
     </Container>
