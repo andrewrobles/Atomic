@@ -2,21 +2,25 @@ import { useState } from 'react';
 
 import List from '@mui/material/List';
 
+import HabitActionsDialog from './HabitActionsDialog';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 import HabitListItem from './HabitListItem';
 import HabitDetailDialog from './HabitDetailDialog';
 import api from '../api';
 
 const HabitList = (props) => {
+  const [openHabitActions, setOpenHabitActions] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const [openHabitDetail, setOpenHabitDetail] = useState(false);
 
-  const handleOpen = (habit) => {
-    setSelectedHabit(habit);
+  const handleOpenHabitActions = (habit) => {
+    setSelectedHabit(habit);  
+    setOpenHabitActions(true);
   };
 
-  const handleClose = () => {
+  const handleCloseHabitActions = () => {
+    setOpenHabitActions(false);
     setSelectedHabit(null);
   };
 
@@ -38,7 +42,7 @@ const HabitList = (props) => {
     await api.deleteHabit(selectedHabit._id);
     await props.onDelete();
     setOpenConfirmDelete(false)
-    handleClose();
+    handleCloseHabitActions();
   };
 
   const handleMarkComplete = async (habitId, date) => {
@@ -53,10 +57,10 @@ const HabitList = (props) => {
     <>
       <List>
         {props.habits.map((item, index) => (
-          <HabitListItem
+          <HabitListItem 
             key={index}
             item={item}
-            onOpen={handleOpen}
+            onOpen={handleOpenHabitActions}
             handleOpenDetail={handleOpenDetail}
             onMarkComplete={handleMarkComplete}
             onMarkNotComplete={handleMarkNotComplete}
@@ -68,6 +72,12 @@ const HabitList = (props) => {
         open={openHabitDetail}
         onClose={handleCloseDetail}
         habit={selectedHabit}
+        onOpenActions={handleOpenHabitActions}
+      />
+      
+      <HabitActionsDialog 
+        open={openHabitActions}
+        onClose={handleCloseHabitActions}
         onOpenConfirmDelete={handleOpenConfirmDelete}
       />
 
@@ -75,10 +85,10 @@ const HabitList = (props) => {
         open={openConfirmDelete}
         onClose={() => {
           setOpenConfirmDelete(false);
+          setOpenHabitActions(false);
         }}
         onDelete={handleDelete}
         habitName={selectedHabit?.name}
-        selectedHabit={selectedHabit}
       />
     </>
   );

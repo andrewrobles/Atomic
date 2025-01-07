@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Fab, CircularProgress, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Button, Container, CircularProgress, Typography } from '@mui/material';
+
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
+import NewHabitButton from '../components/NewHabitButton';
 import Error from '../components/Error';
 import api from '../api';
 
@@ -59,23 +60,12 @@ function Main() {
     localStorage.removeItem('userPassword');
   };
 
-  const handleOpenNewHabit = () => {
-    setOpenNewHabit(true);
-  };
-
-  const handleCloseNewHabit = () => {
-    setOpenNewHabit(false);
-  };
-
   if (error) {
     return <Error title={error.title} message={error.message} />;
   }
 
   return (
     <div>
-      {/* Sign Out Button */}
-
-      {/* Main Content */}
       <Container maxWidth="sm">
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
           <Button color="inherit" onClick={handleSignOut}>
@@ -101,27 +91,11 @@ function Main() {
             )}
           </>
         )}
-        <Fab 
-          color="primary" 
-          aria-label="add"
-          onClick={handleOpenNewHabit}
-          sx={{
-            position: 'fixed',
-            bottom: 16,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            backgroundColor: 'white',
-            color: 'primary.main',
-            '&:hover': {
-              backgroundColor: '#f5f5f5'
-            }
-          }}
-        >
-          <AddIcon />
-        </Fab>
+        <NewHabitButton onClick={() => setOpenNewHabit(true)}/>
+       
         <NewHabitDialog
           open={openNewHabit}
-          onClose={handleCloseNewHabit}
+          onClose={() => setOpenNewHabit(false)}
           onSave={refreshHabits}
         />
       </Container>
