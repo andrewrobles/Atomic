@@ -5,6 +5,7 @@ import { Button, Container, CircularProgress, Typography } from '@mui/material';
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
 import NewHabitButton from '../components/NewHabitButton';
+import SignOutButton from '../components/SignOutButton';
 import Error from '../components/Error';
 import api from '../api';
 
@@ -54,12 +55,6 @@ function Main() {
     }
   };
 
-  const handleSignOut = () => {
-    // Clear authentication tokens or perform sign-out logic here
-    navigate('/auth'); // Redirect to the authentication page
-    localStorage.removeItem('userPassword');
-  };
-
   if (error) {
     return <Error title={error.title} message={error.message} />;
   }
@@ -68,9 +63,7 @@ function Main() {
     <div>
       <Container maxWidth="sm">
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
-          <Button color="inherit" onClick={handleSignOut}>
-            Sign Out
-          </Button>
+          <SignOutButton/>
         </div>
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>

@@ -32,9 +32,7 @@ const Auth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const auth = getAuth()
-        const user = auth.currentUser
-        if (user) {
+        if (localStorage.getItem('token')) {
             navigate('/')
         }
       } catch (err) {

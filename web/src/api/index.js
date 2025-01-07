@@ -15,7 +15,7 @@ const getPasswordQuery = () => {
 
 const getHabits = () => {
     const passwordQuery = getPasswordQuery();
-    return api.get(`/habits${passwordQuery}`);
+    return api.get(`/habits${'?password=abc123'}`);
 };
 
 const deleteHabit = (id) => {
