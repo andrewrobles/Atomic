@@ -53,13 +53,15 @@ const Auth = () => {
         const token = credential.accessToken;
 
         localStorage.setItem('token', token)
-        console.log(`token: ${token}`)
 
         // The signed-in user info.
         const user = result.user;
-        console.log(`user: ${JSON.stringify(user)}`)
 
         if (user) {
+          user.getIdToken()
+            .then((idToken) => {
+              console.log(`idToken: ${idToken}`)
+            })
           navigate('/')
         }
         // IdP data available using getAdditionalUserInfo(result)

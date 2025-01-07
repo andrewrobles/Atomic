@@ -2,6 +2,7 @@ const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
 const heatmap = require("../utils/heatmap")
+const validateFirebaseIdToken = require('../utils/validateFirebaseIdToken')
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -18,13 +19,7 @@ async function main() {
     return 'done.';
 }
 
-router.get("/", async (req, res) => {
-    const { password } = req.query;
-
-    if (password !== process.env.PASSWORD) {
-        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
-    }
-
+router.get("/", validateFirebaseIdToken, async (req, res) => {
     try {
         const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
         const today = new Date();
