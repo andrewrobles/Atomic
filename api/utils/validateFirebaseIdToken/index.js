@@ -23,7 +23,7 @@ const validateFirebaseIdToken = async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Error verifying ID token:", error)
-        res.status(403).send("Forbidden");
+        res.status(401).send("Unauthorized");
     }
 }
 
