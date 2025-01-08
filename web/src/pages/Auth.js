@@ -52,16 +52,13 @@ const Auth = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
 
-        localStorage.setItem('token', token)
-
         // The signed-in user info.
         const user = result.user;
 
         if (user) {
-          user.getIdToken()
-            .then((idToken) => {
-              console.log(`idToken: ${idToken}`)
-            })
+          user.getIdToken().then(idToken => {
+            localStorage.setItem('token', token)
+          })
           navigate('/')
         }
         // IdP data available using getAdditionalUserInfo(result)
