@@ -1,1 +1,3 @@
-chore: enable hot reloading in the api 
+refactor: create mongo repository object
+refactor: get email from firebase instead of user
+chore: enable hot reloading in the api
