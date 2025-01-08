@@ -14,9 +14,14 @@ const getPasswordQuery = () => {
 };
 
 const getHabits = () => {
-    const passwordQuery = getPasswordQuery();
-    return api.get(`/habits${'?password=abc123'}`);
-};
+    const idToken = localStorage.getItem('idToken')
+    console.log(`id token from get habits: ${idToken}`)
+    return api.get(`/habits`, {
+        headers: {
+            Authorization: `Bearer ${idToken}`
+        }
+    })
+}
 
 const deleteHabit = (id) => {
     const passwordQuery = getPasswordQuery();

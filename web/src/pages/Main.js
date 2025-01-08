@@ -24,6 +24,7 @@ function Main() {
         setError(null);
       } catch (err) {
         if (err.response && err.response.status === 401) {
+          localStorage.removeItem('idToken')
           navigate('/auth');
         } else {
           setError({

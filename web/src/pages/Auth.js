@@ -32,7 +32,7 @@ const Auth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('idToken')) {
             navigate('/')
         }
       } catch (err) {
@@ -48,16 +48,12 @@ const Auth = () => {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-
         // The signed-in user info.
         const user = result.user;
 
         if (user) {
           user.getIdToken().then(idToken => {
-            localStorage.setItem('token', token)
+            localStorage.setItem('idToken', idToken)
           })
           navigate('/')
         }

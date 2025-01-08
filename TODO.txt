@@ -1,1 +1,1 @@
-set up api to accept token
+enable hot reloading in the api 
