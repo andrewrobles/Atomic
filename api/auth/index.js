@@ -39,4 +39,4 @@ const getEmailFromIdToken = async (idToken) => {
   }
 };
 
-module.exports = validateIdToken
+module.exports = { validateIdToken, getEmailFromIdToken } 

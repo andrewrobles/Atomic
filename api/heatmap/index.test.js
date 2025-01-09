@@ -1,5 +1,34 @@
 const heatmap = require('./index');
 
+test('edge case 1', () => {
+    const dates = [
+        "2024-12-26",
+        "2025-01-02",
+        "2025-01-04",
+        "2025-01-05",
+        "2025-01-06",
+        "2025-01-07",
+        "2024-01-08",
+        "2025-01-10",
+        "2025-01-11"
+    ]
+    const result = heatmap(dates, '2025-01-12')
+    const january = {
+        days: [
+            [null, false, false, false, false],
+            [null, false, false, false, false],
+            [null, false, false, false, false],
+            [true, false, false, false, false],
+            [false, true, false, false, false],
+            [true, false, false, false, false],
+            [false, false, false, false, null]
+        ],
+        year: 2025,
+        month: "Jan"
+    }
+    expect(result[1]).toEqual(january)
+})
+
 test('handles empty dates', () => {
     const dates = []
     const result = heatmap(dates, '2025-01-01')
