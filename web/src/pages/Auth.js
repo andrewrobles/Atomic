@@ -26,14 +26,16 @@ const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider()
 
 const Auth = () => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         if (localStorage.getItem('idToken')) {
-            navigate('/')
+          navigate('/')
         }
       } catch (err) {
         if (err.response && err.response.status !== 401) {
@@ -46,6 +48,7 @@ const Auth = () => {
   }, [navigate]);
 
   const signInWithGoogle = () => {
+    setLoading(true)
     signInWithPopup(auth, provider)
       .then((result) => {
         // The signed-in user info.
@@ -68,26 +71,29 @@ const Auth = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="100vh"
-        padding={2}
-        sx={{ backgroundColor: 'white' }}
-      >
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={signInWithGoogle}
-          fullWidth
-          sx={{ marginTop: 2 }}
+      {loading ? 'Loading...' :
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          minHeight="100vh"
+          padding={2}
+          sx={{ backgroundColor: 'white' }}
         >
-          Sign in with Google
-        </Button>
-      </Box>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={signInWithGoogle}
+            fullWidth
+            sx={{ marginTop: 2 }}
+          >
+            Sign in with Google
+          </Button>
+        </Box>
+      }
+
     </Container>
   );
 };
