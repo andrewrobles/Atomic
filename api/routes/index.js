@@ -2,7 +2,7 @@ const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
 const validateIdToken = require('../auth')
-const { getHabits } = require('../database')
+const { getHabits, createHabit, deleteHabit, markHabit } = require('../database')
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -36,7 +36,7 @@ router.post("/", validateIdToken, async (req, res) => {
     }
 
     try {
-        const result = await client.db("habitsdb").collection("habits").insertOne({ name, dates: [] });
+        const result = await createHabit(name)
         res.status(201).json({ message: "Habit created successfully", id: result.insertedId });
     } catch (error) {
         console.error("Error creating habit:", error);
@@ -46,13 +46,14 @@ router.post("/", validateIdToken, async (req, res) => {
 
 router.delete("/:id", validateIdToken, async (req, res) => {
     try {
-        await client.db("habitsdb").collection("habits").deleteOne({ _id: new mongodb.ObjectId(req.params.id) });
+        await deleteHabit(req.params.id)
         res.status(200).json({ message: "Habit deleted successfully" });
     } catch (error) {
         console.error("Error deleting habit:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 router.patch("/:id/:date", validateIdToken, async (req, res) => {
     const { done } = req.body;
@@ -69,21 +70,7 @@ router.patch("/:id/:date", validateIdToken, async (req, res) => {
     }
 
     try {
-        let updateOperation;
-        if (done) {
-            updateOperation = {
-                $addToSet: { dates: date }
-            };
-        } else {
-            updateOperation = {
-                $pull: { dates: date }
-            };
-        }
-
-        const result = await client.db("habitsdb").collection("habits").updateOne(
-            { _id: new mongodb.ObjectId(id) },
-            updateOperation
-        );
+        const result = await markHabit(id, done, date)
 
         if (result.matchedCount === 0) {
             return res.status(404).json({ error: "Habit not found" });
@@ -95,6 +82,8 @@ router.patch("/:id/:date", validateIdToken, async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+
 
 main()
     .then(console.log)
