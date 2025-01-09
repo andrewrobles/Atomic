@@ -1,4 +1,5 @@
-always display branch on mac terminal
-set up netlify to be able to be run globally
-create new user if does not exist upon signing in
-change schema to work with user nested data model
+bugfix: 1/8 habit failure is shown as success on heatmap
+chore: always display branch on mac terminal
+chore: set up netlify to be able to be run globally
+feat: create new user if does not exist upon signing in
+feat: change schema to work with user nested data model
