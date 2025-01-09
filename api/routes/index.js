@@ -4,20 +4,6 @@ const router = express.Router();
 const validateIdToken = require('../auth')
 const { getHabits, createHabit, deleteHabit, markHabit } = require('../database')
 
-const client = new mongodb.MongoClient(process.env.ATLAS_URI);
-
-async function main() {
-    try {
-        console.log("Connecting to MongoDB...");
-        await client.connect();
-        console.log("MongoDB connected successfully!");
-    } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
-        process.exit(1);
-    }
-
-    return 'done.';
-}
 
 router.get("/", validateIdToken, async (req, res) => {
     try {
@@ -83,10 +69,5 @@ router.patch("/:id/:date", validateIdToken, async (req, res) => {
     }
 });
 
-
-
-main()
-    .then(console.log)
-    .catch(console.error)
 
 module.exports = router
