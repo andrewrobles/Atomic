@@ -1,8 +1,9 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
-const heatmap = require("../utils/heatmap")
-const validateFirebaseIdToken = require('../utils/validateFirebaseIdToken')
+const heatmap = require("../heatmap")
+const validateIdToken = require('../auth')
+const { getHabits } = require('../database')
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
@@ -19,17 +20,9 @@ async function main() {
     return 'done.';
 }
 
-router.get("/", validateFirebaseIdToken, async (req, res) => {
+router.get("/", validateIdToken, async (req, res) => {
     try {
-        const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const dd = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${yyyy}-${mm}-${dd}`;
-        habits.forEach(habit => {
-            habit.calendar = heatmap(habit.dates, formattedDate)
-        })
+        const habits = await getHabits()
         res.status(200).json(habits);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
