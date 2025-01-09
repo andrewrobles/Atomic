@@ -1,7 +1,6 @@
 const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
-const heatmap = require("../heatmap")
 const validateIdToken = require('../auth')
 const { getHabits } = require('../database')
 
@@ -29,13 +28,8 @@ router.get("/", validateIdToken, async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
-    const { password } = req.query;
+router.post("/", validateIdToken, async (req, res) => {
     const { name } = req.body;
-
-    if (password !== process.env.PASSWORD) {
-        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
-    }
 
     if (!name) {
         return res.status(400).json({ error: "Name is required" });
@@ -50,13 +44,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
-    const { password } = req.query;
-
-    if (password !== process.env.PASSWORD) {
-        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
-    }
-
+router.delete("/:id", validateIdToken, async (req, res) => {
     try {
         await client.db("habitsdb").collection("habits").deleteOne({ _id: new mongodb.ObjectId(req.params.id) });
         res.status(200).json({ message: "Habit deleted successfully" });
@@ -66,14 +54,9 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-router.patch("/:id/:date", async (req, res) => {
-    const { password } = req.query;
+router.patch("/:id/:date", validateIdToken, async (req, res) => {
     const { done } = req.body;
     const { id, date } = req.params;
-
-    if (password !== process.env.PASSWORD) {
-        return res.status(401).json({ error: "Unauthorized: Invalid or missing password" });
-    }
 
     if (typeof done !== 'boolean') {
         return res.status(400).json({ error: "'done' must be a boolean value" });
@@ -112,9 +95,6 @@ router.patch("/:id/:date", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-
-// TODO: Edit habit `PATCH /habits/<id> { "name": <string> }`
-// TODO: Habit detail `GET /habits/<id>`
 
 main()
     .then(console.log)
