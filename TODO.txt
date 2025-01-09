@@ -1,3 +1,6 @@
-there should not be an error when auth credentials are not provided
 create new user if does not exist upon signing in
 change schema to work with user nested data model
+
+
+always display branch on mac terminal
+set up netlify to be able to be run globally

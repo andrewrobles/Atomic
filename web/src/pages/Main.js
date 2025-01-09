@@ -36,8 +36,11 @@ function Main() {
         setLoading(false);
       }
     };
-
-    fetchHabits();
+    if (localStorage.getItem('idToken') === null) {
+      navigate('/auth')
+    } else {
+      fetchHabits();
+    }
   }, [navigate]);
   
   const refreshHabits = async () => {
