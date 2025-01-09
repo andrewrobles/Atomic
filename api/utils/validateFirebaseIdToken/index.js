@@ -15,9 +15,9 @@ const validateFirebaseIdToken = async (req, res, next) => {
 
     try {
         const idToken = authorizationHeader.split("Bearer ")[1]
-        console.log(`idToken: ${idToken}`)
-        const user = await getUserFromIdToken(idToken)
-        if (user.email != 'andrewrobles@verizon.net') {
+        const email = await getEmailFromIdToken(idToken)
+        console.log(`email: ${email}`)
+        if (email != 'andrewrobles@verizon.net') {
             return res.status(401).send("Unauthorized")
         }
         next();
@@ -27,18 +27,12 @@ const validateFirebaseIdToken = async (req, res, next) => {
     }
 }
 
-const getUserFromIdToken = async (idToken) => {
+const getEmailFromIdToken = async (idToken) => {
     try {
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
-      console.log("Decoded Token:", decodedToken);
-  
-      const uid = decodedToken.uid; 
-      console.log("User UID:", uid);
-  
-      const userRecord = await admin.auth().getUser(uid);
-      console.log("User Record:", userRecord);
-  
-      return userRecord; 
+      const decodedToken = await admin.auth().verifyIdToken(idToken)
+      const uid = decodedToken.uid
+      const userRecord = await admin.auth().getUser(uid)
+      return userRecord.email
     } catch (error) {
       console.error("Error fetching user:", error);
       throw error;
