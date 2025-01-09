@@ -2,7 +2,7 @@ const express = require("express");
 const mongodb = require("mongodb")
 const router = express.Router();
 const validateIdToken = require('../auth')
-const { getHabits, createHabit, deleteHabit, markHabit } = require('../database')
+const { getHabits, createHabit, deleteHabit, markHabit } = require('../db')
 
 
 router.get("/", validateIdToken, async (req, res) => {
