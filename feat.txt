@@ -1,8 +1,0 @@
-sign up
-edit habit
-streaks
-build habits
-call to action
-good habits
-revamp interface
-desktop responsive
