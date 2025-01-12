@@ -34,7 +34,9 @@ const Auth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        if (localStorage.getItem('idToken')) {
+        const idToken = localStorage.getItem('idToken')
+        console.log(`idToken: ${idToken}`)
+        if (idToken) {
           navigate('/')
         }
       } catch (err) {

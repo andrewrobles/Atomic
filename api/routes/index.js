@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const {validateIdToken, getEmailFromIdToken } = require('../auth')
-const { getHabits, createHabit, deleteHabit, markHabit } = require('../collections')
+const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../collections')
 
 
 router.get("/", validateIdToken, async (req, res) => {
     try {
+        const idToken = req.headers.authorization.split("Bearer ")[1]
+        const email = await getEmailFromIdToken(idToken)
+        await getUser(email)
         const habits = await getHabits()
         res.status(200).json(habits);
     } catch (error) {
