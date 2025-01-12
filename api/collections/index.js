@@ -1,5 +1,5 @@
 const mongodb = require("mongodb")
-const heatmap = require("../cal")
+const heatmap = require("../heatmap")
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI);
 
