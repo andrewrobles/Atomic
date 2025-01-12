@@ -74,8 +74,21 @@ const markHabit = async (id, done, date) => {
     }
 }
 
+const getUser = async (email) => {
+    try {
+        const result = await client.db('habitsdb').collection('users').findOneAndUpdate(
+            { email },
+            { $setOnInsert: { email}},
+            { upsert: true, returnDocument: 'after' }
+        )
+        return result.value
+    } catch (error) {
+        throw new Error('error when getting user:', error)
+    }
+}
+
 main()
     .then(console.log)
     .catch(console.error)
 
-module.exports = { getHabits, createHabit, deleteHabit, markHabit } 
+module.exports = { getHabits, createHabit, deleteHabit, markHabit, getUser } 

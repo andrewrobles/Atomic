@@ -1,4 +1,4 @@
 feat: create new user if does not exist upon signing in
 feat: change schema to work with user nested data model
-chore: lengthen the sign in time of a user to at least a week 
 bugfix: https://bit.ly/missing-initial-state 
+chore: lengthen the sign in time of a user to at least a week 
