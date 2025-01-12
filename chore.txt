@@ -1,0 +1,3 @@
+create new user if does not exist upon signing in
+change schema to work with user nested data model
+lengthen the sign in time of a user to at least a week 
