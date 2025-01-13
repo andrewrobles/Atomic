@@ -3,7 +3,7 @@ heroku deployment
 hot reloading
 edit habit
 streaks
-build habits
+good habits
 call to action
 good habits
 revamp interface
