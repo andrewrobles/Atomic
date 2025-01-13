@@ -6,12 +6,13 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-const validateIdToken = async (req, res) => {
+const validateIdToken = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization
 
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
     return res.status(401).send("Unauthorized")
   }
+  next()
 }
 
 const getEmailFromIdToken = async (idToken) => {
