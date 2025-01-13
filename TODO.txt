@@ -1,10 +1,10 @@
 sign up
-chore: deploy to heroku
-chore: enable hot reloading
+deploy to heroku
+enable hot reloading
 edit habit
 streaks
 build habits
 call to action
 good habits
 revamp interface
-desktop responsive
+desktop mode
