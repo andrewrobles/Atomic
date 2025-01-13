@@ -1,4 +1,3 @@
-use new schema for get habit
 use new schema for delete habit
 use new schema for mark habit
 lengthen the sign in time of a user to at least a week 

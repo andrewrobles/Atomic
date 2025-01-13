@@ -16,7 +16,7 @@ async function main() {
     return 'done.';
 }
 
-const getHabits = async () => {
+const getHabits = async (email) => {
     try {
         const userCollection = client.db("habitsdb").collection("users")
         const user = await userCollection.findOne({ email });
