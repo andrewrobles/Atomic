@@ -1,3 +1,10 @@
-use new schema for delete habit
-use new schema for mark habit
-lengthen the sign in time of a user to at least a week 
+handle habits with no fail days
+heroku deployment
+hot reloading
+lengthen sign in time to 2 weeks
+edit habit
+streaks
+good habits
+redesign interface
+port to mobile
+release to app store

@@ -55,9 +55,9 @@ const Auth = () => {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-
         if (user) {
           user.getIdToken().then(idToken => {
+            console.log(`idToken: ${idToken}`)
             localStorage.setItem('idToken', idToken)
           })
           navigate('/')

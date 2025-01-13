@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { validateIdToken, getEmailFromIdToken } = require('../firebase')
-const { getHabits, createHabit, deleteHabit, markHabit } = require('../mongodb')
+const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../mongodb')
 
 router.get("/", validateIdToken, async (req, res) => {
-
     try {
         const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
@@ -36,7 +35,9 @@ router.post("/", validateIdToken, async (req, res) => {
 
 router.delete("/:id", validateIdToken, async (req, res) => {
     try {
-        await deleteHabit(req.params.id)
+        const idToken = getIdToken(req)
+        const email = await getEmailFromIdToken(idToken)
+        await deleteHabit(email, req.params.id)
         res.status(200).json({ message: "Habit deleted successfully" });
     } catch (error) {
         console.error("Error deleting habit:", error);
@@ -60,7 +61,9 @@ router.patch("/:id/:date", validateIdToken, async (req, res) => {
     }
 
     try {
-        const result = await markHabit(id, done, date)
+        const idToken = getIdToken(req)
+        const email = await getEmailFromIdToken(idToken)
+        const result = await markHabit(email, id, done, date)
 
         if (result.matchedCount === 0) {
             return res.status(404).json({ error: "Habit not found" });

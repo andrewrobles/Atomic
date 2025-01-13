@@ -82,36 +82,58 @@ const createHabit = async (name, email) => {
     }
 }
 
-const deleteHabit = async (id) => {
+const deleteHabit = async (email, habitId) => {
     try {
-        await client.db("habitsdb").collection("habits").deleteOne({ _id: new mongodb.ObjectId(id) });
-    } catch (error) {
-        throw new Error('error deleting habit:', error)
-    }
-}
+        // Remove the habit with the specified ID from the user's habits array
+        const mongoId = new mongodb.ObjectId(habitId); // Assuming `_id` is an ObjectId
+        const result = await client.db("habitsdb").collection("users").updateOne(
+            { email },
+            { $pull: { habits: { _id: mongoId } } }
+        );
 
-const markHabit = async (id, done, date) => {
+        if (result.modifiedCount === 0) {
+            throw new Error("Habit not found or already deleted");
+        }
+
+        return result;
+    } catch (error) {
+        console.error("Error while deleting habit:", error);
+        throw new Error("Error while deleting habit");
+    }
+};
+
+const markHabit = async (email, habitId, done, date) => {
     try {
-        let updateOperation
+        let updateOperation;
+
         if (done) {
+            // Add the date to the habit's `dates` array
             updateOperation = {
-                $addToSet: { dates: date }
+                $addToSet: { "habits.$.dates": date }
             };
         } else {
+            // Remove the date from the habit's `dates` array
             updateOperation = {
-                $pull: { dates: date }
+                $pull: { "habits.$.dates": date }
             };
         }
 
-        const result = await client.db("habitsdb").collection("habits").updateOne(
-            { _id: new mongodb.ObjectId(id) },
+        // Update the specific habit within the user's habits array
+        const result = await client.db("habitsdb").collection("users").updateOne(
+            { email, "habits._id": new mongodb.ObjectId(habitId) }, // Match user by email and habit by _id
             updateOperation
         );
-        return result
+
+        if (result.modifiedCount === 0) {
+            throw new Error("Habit not found or date not updated");
+        }
+
+        return result;
     } catch (error) {
-        throw new Error('error when marking habit: ', error)
+        console.error("Error when marking habit:", error);
+        throw new Error("Error when marking habit");
     }
-}
+};
 
 const getUser = async (email) => {
     try {

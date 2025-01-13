@@ -23,7 +23,7 @@ function Main() {
         setHabits(response.data);
         setError(null);
       } catch (err) {
-        if (err.response && err.response.status === 401) {
+        if (err.response) {
           localStorage.removeItem('idToken')
           navigate('/auth');
         } else {
