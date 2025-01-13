@@ -16,10 +16,6 @@ const validateIdToken = async (req, res, next) => {
   try {
     const idToken = authorizationHeader.split("Bearer ")[1]
     const email = await getEmailFromIdToken(idToken)
-    console.log(`email: ${email}`)
-    if (email != 'andrewrobles@verizon.net') {
-      return res.status(401).send("Unauthorized")
-    }
     next();
   } catch (error) {
     console.error("Error verifying ID token:", error)
