@@ -1,4 +1,5 @@
 sign up
+fix inconsistent timezones
 heroku deployment
 hot reloading
 update heatmap on check/uncheck
