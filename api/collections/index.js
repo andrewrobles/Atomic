@@ -39,6 +39,7 @@ const getTodayDateString = () => {
 const createHabit = async (name, email) => {
     try {
         // Find the user by email
+        const userCollection = client.db("habitsdb").collection("users")
         const user = await userCollection.findOne({ email });
 
         if (!user) {

@@ -1,4 +1,3 @@
-use new schema for create habit
 use new schema for get habit
 use new schema for delete habit
 use new schema for mark habit
