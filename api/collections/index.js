@@ -46,6 +46,8 @@ const getTodayDateString = () => {
 
 const createHabit = async (name, email) => {
     try {
+        const habitId = new mongodb.ObjectId(); // Generate a unique ID for the habit
+
         // Find the user by email
         const userCollection = client.db("habitsdb").collection("users")
         const user = await userCollection.findOne({ email });
@@ -55,7 +57,7 @@ const createHabit = async (name, email) => {
         }
 
         // Create a new habit object
-        const newHabit = { name, dates: [] };
+        const newHabit = { _id: habitId, name, dates: [] };
 
         // Update the user's habits array
         const result = await userCollection.updateOne(
