@@ -18,11 +18,19 @@ async function main() {
 
 const getHabits = async () => {
     try {
-        const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
-        habits.forEach(habit => {
-            habit.calendar = heatmap(habit.dates, getTodayDateString())
-        })
-        return habits
+        const userCollection = client.db("habitsdb").collection("users")
+        const user = await userCollection.findOne({ email });
+
+        if (user.habits) {
+            const habits = user.habits
+            habits.forEach(habit => {
+                habit.calendar = heatmap(habit.dates, getTodayDateString())
+            })
+            return habits
+        } else {
+            return []
+        }
+
     } catch (error) {
         throw new Error('error while getting habits:', error)
     }

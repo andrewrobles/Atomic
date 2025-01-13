@@ -9,7 +9,7 @@ router.get("/", validateIdToken, async (req, res) => {
         const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
         await getUser(email)
-        const habits = await getHabits()
+        const habits = await getHabits(email)
         res.status(200).json(habits);
     } catch (err) {
         res.status(500).json({ error: `Internal Server Error: ${err}` });
