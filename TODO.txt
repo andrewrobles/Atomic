@@ -1,4 +1,5 @@
 sign up
+handle habits with no fail days
 fix inconsistent timezones
 heroku deployment
 hot reloading
