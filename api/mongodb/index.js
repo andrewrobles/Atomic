@@ -16,32 +16,43 @@ async function main() {
     return 'done.';
 }
 
-const getHabits = async (email) => {
+const getHabits = async (email, timezone) => {
     try {
+        const formattedDate = getToday(timezone)
         const userCollection = client.db("habitsdb").collection("users")
         const user = await userCollection.findOne({ email });
 
         if (user.habits) {
             const habits = user.habits
             habits.forEach(habit => {
-                habit.calendar = heatmap(habit.dates, getTodayDateString())
+                habit.calendar = heatmap(habit.dates, formattedDate)
             })
             return habits
         } else {
             return []
         }
-
     } catch (error) {
         throw new Error('error while getting habits:', error)
     }
 }
 
-const getTodayDateString = () => {
-    const today = new Date()
-    const yyyy = today.getFullYear()
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    const dd = String(today.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
+const getToday = timezone => {
+    const today = new Date();
+
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    });
+
+    const parts = formatter.formatToParts(today)
+    const yyyy = parts.find(part => part.type === 'year').value
+    const mm = parts.find(part => part.type === 'month').value
+    const dd = parts.find(part => part.type === 'day').value
+
+    const formattedDate = `${yyyy}-${mm}-${dd}`
+    return formattedDate
 }
 
 const createHabit = async (name, email) => {
@@ -106,7 +117,7 @@ const getUser = async (email) => {
     try {
         const result = await client.db('habitsdb').collection('users').findOneAndUpdate(
             { email },
-            { $setOnInsert: { email}},
+            { $setOnInsert: { email } },
             { upsert: true, returnDocument: 'after' }
         )
         return result.value

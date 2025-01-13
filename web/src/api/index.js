@@ -12,7 +12,8 @@ const getHabits = () => {
     const idToken = localStorage.getItem('idToken')
     return api.get(`/habits`, {
         headers: {
-            Authorization: `Bearer ${idToken}`
+            Authorization: `Bearer ${idToken}`,
+            Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         }
     })
 }

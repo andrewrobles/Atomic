@@ -1,20 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const {validateIdToken, getEmailFromIdToken } = require('../auth')
-const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../collections')
-
+const { validateIdToken, getEmailFromIdToken } = require('../firebase')
+const { getHabits, createHabit, deleteHabit, markHabit } = require('../mongodb')
 
 router.get("/", validateIdToken, async (req, res) => {
+
     try {
         const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
         await getUser(email)
-        const habits = await getHabits(email)
+        const habits = await getHabits(email, req.headers.timezone)
         res.status(200).json(habits);
     } catch (err) {
         res.status(500).json({ error: `Internal Server Error: ${err}` });
     }
-});
+})
 
 router.post("/", validateIdToken, async (req, res) => {
     const { name } = req.body;
