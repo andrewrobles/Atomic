@@ -6,7 +6,6 @@ hot reloading
 edit habit
 streaks
 good habits
-call to action
-good habits
-revamp interface
-desktop mode
+redesign interface
+port to mobile
+release to app store
