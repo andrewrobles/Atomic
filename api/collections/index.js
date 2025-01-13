@@ -19,24 +19,41 @@ async function main() {
 const getHabits = async () => {
     try {
         const habits = await client.db("habitsdb").collection("habits").find({}).toArray();
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const dd = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${yyyy}-${mm}-${dd}`;
         habits.forEach(habit => {
-            habit.calendar = heatmap(habit.dates, formattedDate)
+            habit.calendar = heatmap(habit.dates, getTodayDateString())
         })
         return habits
     } catch (error) {
         throw new Error('error while getting habits:', error)
     }
-
 }
 
-const createHabit = async (name) => {
+const getTodayDateString = () => {
+    const today = new Date()
+    const yyyy = today.getFullYear()
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    const dd = String(today.getDate()).padStart(2, '0')
+    return `${yyyy}-${mm}-${dd}`
+}
+
+const createHabit = async (name, email) => {
     try {
-        const result = await client.db("habitsdb").collection("habits").insertOne({ name, dates: [] });
+        // Find the user by email
+        const user = await userCollection.findOne({ email });
+
+        if (!user) {
+            throw new Error(`User with email ${email} not found`);
+        }
+
+        // Create a new habit object
+        const newHabit = { name, dates: [] };
+
+        // Update the user's habits array
+        const result = await userCollection.updateOne(
+            { email },
+            { $push: { habits: newHabit } }
+        )
+
         return result
     } catch (error) {
         throw new Error('error while creating habit:', error)

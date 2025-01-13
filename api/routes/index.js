@@ -6,13 +6,13 @@ const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../
 
 router.get("/", validateIdToken, async (req, res) => {
     try {
-        const idToken = req.headers.authorization.split("Bearer ")[1]
+        const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
         await getUser(email)
         const habits = await getHabits()
         res.status(200).json(habits);
-    } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+    } catch (err) {
+        res.status(500).json({ error: `Internal Server Error: ${err}` });
     }
 });
 
@@ -24,11 +24,13 @@ router.post("/", validateIdToken, async (req, res) => {
     }
 
     try {
-        const result = await createHabit(name)
+        const idToken = getIdToken(req)
+        const email = await getEmailFromIdToken(idToken)
+        const result = await createHabit(name, email)
         res.status(201).json({ message: "Habit created successfully", id: result.insertedId });
-    } catch (error) {
+    } catch (err) {
         console.error("Error creating habit:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: `Internal Server Error: ${err}` });
     }
 });
 
@@ -71,5 +73,8 @@ router.patch("/:id/:date", validateIdToken, async (req, res) => {
     }
 });
 
+const getIdToken = req => {
+    return req.headers.authorization.split("Bearer ")[1]
+}
 
 module.exports = router
