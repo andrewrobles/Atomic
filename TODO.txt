@@ -1,6 +1,6 @@
 sign up
-deploy to heroku
-enable hot reloading
+heroku deployment
+hot reloading
 edit habit
 streaks
 build habits
