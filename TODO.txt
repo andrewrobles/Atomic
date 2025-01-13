@@ -1,6 +1,7 @@
 sign up
 heroku deployment
 hot reloading
+update heatmap on check/uncheck
 edit habit
 streaks
 good habits
