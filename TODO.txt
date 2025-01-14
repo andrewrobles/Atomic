@@ -2,9 +2,9 @@ handle habits with no fail days
 heroku deployment
 hot reloading
 lengthen sign in time to 2 weeks
-edit habit
-streaks
-good habits
 redesign interface
 port to mobile
+edit habit name
+modify previous days
+streaks
 release to app store
