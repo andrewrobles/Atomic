@@ -13,7 +13,7 @@ const getHabits = () => {
     return api.get(`/habits`, {
         headers: {
             Authorization: `Bearer ${idToken}`,
-            Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
         }
     })
 }
@@ -35,7 +35,8 @@ const addHabit = (name) => {
         { name },
         {
             headers: {
-                Authorization: `Bearer ${idToken}`
+                Authorization: `Bearer ${idToken}`,
+                Timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
             },
         }
     )

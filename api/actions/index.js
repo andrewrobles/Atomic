@@ -1,16 +1,17 @@
-const mongodb = require("mongodb")
-const heatmap = require("../heatmap")
+const mongodb = require('mongodb')
+const heatmap = require('../heatmap')
+const { getToday } = require('../utils')
 
-const client = new mongodb.MongoClient(process.env.ATLAS_URI);
+const client = new mongodb.MongoClient(process.env.ATLAS_URI)
 
 async function main() {
     try {
-        console.log("Connecting to MongoDB...");
-        await client.connect();
-        console.log("MongoDB connected successfully!");
+        console.log("Connecting to MongoDB...")
+        await client.connect()
+        console.log("MongoDB connected successfully!")
     } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
-        process.exit(1);
+        console.error("Error connecting to MongoDB:", error)
+        process.exit(1)
     }
 
     return 'done.';
@@ -25,7 +26,7 @@ const getHabits = async (email, timezone) => {
         if (user.habits) {
             const habits = user.habits
             habits.forEach(habit => {
-                habit.calendar = heatmap(habit.dates, formattedDate)
+                habit.calendar = heatmap(habit.dates, formattedDate, habit.started)
             })
             return habits
         } else {
@@ -36,39 +37,21 @@ const getHabits = async (email, timezone) => {
     }
 }
 
-const getToday = timezone => {
-    const today = new Date();
-
-    const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    });
-
-    const parts = formatter.formatToParts(today)
-    const yyyy = parts.find(part => part.type === 'year').value
-    const mm = parts.find(part => part.type === 'month').value
-    const dd = parts.find(part => part.type === 'day').value
-
-    const formattedDate = `${yyyy}-${mm}-${dd}`
-    return formattedDate
-}
-
-const createHabit = async (name, email) => {
+const createHabit = async (name, email, timezone) => {
     try {
-        const habitId = new mongodb.ObjectId(); // Generate a unique ID for the habit
+        const habitId = new mongodb.ObjectId() // Generate a unique ID for the habit
 
         // Find the user by email
         const userCollection = client.db("habitsdb").collection("users")
-        const user = await userCollection.findOne({ email });
+        const user = await userCollection.findOne({ email })
 
         if (!user) {
-            throw new Error(`User with email ${email} not found`);
+            throw new Error(`User with email ${email} not found`)
         }
 
         // Create a new habit object
-        const newHabit = { _id: habitId, name, dates: [] };
+        const started = getToday(timezone)
+        const newHabit = { _id: habitId, name, dates: [], started}
 
         // Update the user's habits array
         const result = await userCollection.updateOne(
@@ -85,22 +68,22 @@ const createHabit = async (name, email) => {
 const deleteHabit = async (email, habitId) => {
     try {
         // Remove the habit with the specified ID from the user's habits array
-        const mongoId = new mongodb.ObjectId(habitId); // Assuming `_id` is an ObjectId
+        const mongoId = new mongodb.ObjectId(habitId) // Assuming `_id` is an ObjectId
         const result = await client.db("habitsdb").collection("users").updateOne(
             { email },
             { $pull: { habits: { _id: mongoId } } }
         );
 
         if (result.modifiedCount === 0) {
-            throw new Error("Habit not found or already deleted");
+            throw new Error("Habit not found or already deleted")
         }
 
         return result;
     } catch (error) {
-        console.error("Error while deleting habit:", error);
-        throw new Error("Error while deleting habit");
+        console.error("Error while deleting habit:", error)
+        throw new Error("Error while deleting habit")
     }
-};
+}
 
 const markHabit = async (email, habitId, done, date) => {
     try {

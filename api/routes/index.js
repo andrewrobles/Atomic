@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { validateIdToken, getEmailFromIdToken } = require('../firebase')
-const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../mongodb')
+const { validateIdToken, getEmailFromIdToken } = require('../utils')
+const { getHabits, createHabit, deleteHabit, markHabit, getUser } = require('../actions')
 
 router.get("/", validateIdToken, async (req, res) => {
     try {
         const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
         await getUser(email)
-        const habits = await getHabits(email, req.headers.timezone)
+        const timezone = req.headers.timezone
+        const habits = await getHabits(email, timezone)
         res.status(200).json(habits);
     } catch (err) {
         res.status(500).json({ error: `Internal Server Error: ${err}` });
@@ -25,7 +26,8 @@ router.post("/", validateIdToken, async (req, res) => {
     try {
         const idToken = getIdToken(req)
         const email = await getEmailFromIdToken(idToken)
-        const result = await createHabit(name, email)
+        const timezone = req.headers.timezone
+        const result = await createHabit(name, email, timezone)
         res.status(201).json({ message: "Habit created successfully", id: result.insertedId });
     } catch (err) {
         console.error("Error creating habit:", error);

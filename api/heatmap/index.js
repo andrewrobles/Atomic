@@ -1,10 +1,15 @@
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const heatmap = (dates, today) => {
+const heatmap = (dates, today, started = null) => {
     const matrix = []
     const todayDate = parseDate(today)
 
-    const earliestDate = dates.length === 0 ? todayDate : parseDate(dates[0])
+    let earliestDate
+    if (dates.length === 0) {
+        earliestDate = started === null ? todayDate : parseDate(started)
+    } else {
+        earliestDate = parseDate(dates[0])
+    }
     const latestDate = dates.length === 0 ? todayDate : parseDate(dates[dates.length - 1])
 
     let month = earliestDate.getMonth()

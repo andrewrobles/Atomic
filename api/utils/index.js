@@ -25,6 +25,25 @@ const getEmailFromIdToken = async (idToken) => {
     console.error("Error fetching user:", error);
     throw error;
   }
-};
+}
 
-module.exports = { validateIdToken, getEmailFromIdToken } 
+const getToday = timezone => {
+    const today = new Date();
+
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    });
+
+    const parts = formatter.formatToParts(today)
+    const yyyy = parts.find(part => part.type === 'year').value
+    const mm = parts.find(part => part.type === 'month').value
+    const dd = parts.find(part => part.type === 'day').value
+
+    const formattedDate = `${yyyy}-${mm}-${dd}`
+    return formattedDate
+}
+
+module.exports = { validateIdToken, getEmailFromIdToken, getToday } 
