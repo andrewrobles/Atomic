@@ -1,3 +1,5 @@
+is it possible to have a server based dev setup with a serverless prod seruo and is it good practice?
+why is does auth currently work without a service account json file?
 heroku deployment
 hot reloading
 move heatmap to another tab
