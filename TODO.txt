@@ -1,9 +1,10 @@
 heroku deployment
 hot reloading
 lengthen sign in time to 2 weeks
-redesign interface
-port to mobile
+scroll heatmap month to current month
 edit habit name
 modify previous days
 streaks
+redesign interface
+port to mobile
 release to app store
