@@ -8,6 +8,6 @@ modify previous days
 streaks
 scroll heatmap month to current month
 lengthen sign in time
-revamp user interface
+redesign user interface
 port to mobile
 release to app store
