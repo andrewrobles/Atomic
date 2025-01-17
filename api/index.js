@@ -30,7 +30,7 @@ module.exports.handler = serverless(app)
 
 // Local server setup
 if (require.main === module) {
-    const PORT = process.env.PORT || 8888 
+    const PORT = process.env.PORT || 8888
     app.listen(PORT, () => {
         console.log(`Server running locally at http://localhost:${PORT}`)
     })
