@@ -1,5 +1,0 @@
-move heatmap to another tab
-edit habit name
-modify previous days
-scroll heatmap month to current month
-make the current day obvious
