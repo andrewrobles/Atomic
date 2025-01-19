@@ -1,6 +1,6 @@
-# Dr. Habit: Break Bad Habits!
+# Habits
 
-Dr. Habit is a web application designed to help users break bad habits. Each day, users can mark their habits as complete or incomplete, allowing them to track their progress over time. The app features password protection to keep users' habit data private and secure.
+Habits is a web application designed to help users break bad habits. Each day, users can mark their habits as complete or incomplete, allowing them to track their progress over time. The app features password protection to keep users' habit data private and secure.
 
 The application is built using React for the frontend interface, Node.js for the backend API, and MongoDB for data storage, creating a responsive and reliable user experience. Whether you're trying to read more books, exercise regularly, or develop any other positive habit, this tool helps you stay accountable and monitor your progress.
 
