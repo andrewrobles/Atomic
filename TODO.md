@@ -1,10 +1,5 @@
-lo-fi mockup
-hi-fi mockup
-port to mobile
 move heatmap to another tab
 edit habit name
 modify previous days
-streaks
 scroll heatmap month to current month
-lengthen sign in time
-release to app store
+make the current day obvious

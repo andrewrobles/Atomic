@@ -1,5 +1,5 @@
 const mongodb = require('mongodb')
-const heatmap = require('../heatmap')
+const { heatmap, getStreak } = require('../analytics')
 const { getToday } = require('../utils')
 
 const client = new mongodb.MongoClient(process.env.ATLAS_URI)
@@ -19,14 +19,15 @@ async function main() {
 
 const getHabits = async (email, timezone) => {
     try {
-        const formattedDate = getToday(timezone)
+        const today = getToday(timezone)
         const userCollection = client.db("habitsdb").collection("users")
         const user = await userCollection.findOne({ email });
 
         if (user.habits) {
             const habits = user.habits
             habits.forEach(habit => {
-                habit.calendar = heatmap(habit.dates, formattedDate, habit.started)
+                habit.calendar = heatmap(habit.dates, today, habit.started)
+                habit.streak = getStreak(habit.dates, today, habit.started)
             })
             return habits
         } else {

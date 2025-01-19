@@ -1,6 +1,33 @@
-const heatmap = require('./index');
+const { heatmap, getStreak } = require('./index');
 
-test('handles started date', () => {
+test('getStreak handles day zero', () => {
+    const today = '2025-01-05'
+    const start = '2025-01-01'
+    const dates = ['2025-01-05']
+    const actual = getStreak(dates, today, start)
+    const expected = 0
+    expect(actual).toEqual(expected)
+})
+
+test('getStreak gets days since last failure', () => {
+    const today = '2025-01-05'
+    const start = '2025-01-01'
+    const dates = ['2025-01-02']
+    const actual = getStreak(dates, today, start)
+    const expected = 2
+    expect(actual).toEqual(expected)
+})
+
+test('getStreak handles no logs yet', () => {
+    const today = '2025-01-05'
+    const start = '2025-01-01'
+    const dates = []
+    const actual = getStreak(dates, today, start)
+    const expected = 3
+    expect(actual).toEqual(expected)
+})
+
+test('heatmap handles no logs yet', () => {
     const dates = []
     const result = heatmap(dates, '2025-01-05', '2025-01-02')
     const january = {
@@ -20,7 +47,7 @@ test('handles started date', () => {
     expect(result[0]).toEqual(january)
 })
 
-test('handles empty dates', () => {
+test('heatmap handles empty dates', () => {
     const dates = []
     const result = heatmap(dates, '2025-01-01')
     const january = {
@@ -40,7 +67,7 @@ test('handles empty dates', () => {
     expect(result[0]).toEqual(january)
 })
 
-test('logs days', () => {
+test('heatmap logs days', () => {
     const dates = ['2024-12-29', '2024-12-31',]
     const result = heatmap(dates, '2025-01-01')
     const december = {
@@ -74,7 +101,7 @@ test('logs days', () => {
     expect(result[1]).toEqual(january)
 })
 
-test('handles months starting in the middle of the week', () => {
+test('heatmap handles months starting in the middle of the week', () => {
     const dates = [
         '2025-01-31',
     ]

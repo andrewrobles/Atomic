@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, CircularProgress, Typography } from '@mui/material';
+import { Container, CircularProgress, Typography } from '@mui/material';
 
 import HabitList from '../components/HabitList';
 import NewHabitDialog from '../components/NewHabitDialog';
@@ -19,9 +19,14 @@ function Main() {
   useEffect(() => {
     const fetchHabits = async () => {
       try {
-        const response = await api.getHabits();
-        setHabits(response.data);
-        setError(null);
+        const response = await api.getHabits()
+        setHabits(response.data)
+        response.data.forEach(habit => {
+          const habitCopy = {...habit}
+          delete habitCopy.calendar
+          console.log(`habit: ${JSON.stringify(habitCopy)}`)
+        }) 
+        setError(null)
       } catch (err) {
         if (err.response) {
           localStorage.removeItem('idToken')

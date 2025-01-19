@@ -1,5 +1,26 @@
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+const getStreak = (dates, today, start) => {
+    const endDate = new Date(today)
+    const startDate = dates.length === 0 ? new Date(start) : dates[dates.length - 1]
+    const daysSince = calculateDaysBetween(startDate, endDate)
+    return daysSince === 0 ? daysSince : daysSince - 1
+}
+
+const calculateDaysBetween = (date1, date2) => {
+    // Convert dates to Date objects
+    const d1 = new Date(date1)
+    const d2 = new Date(date2)
+
+    // Get the difference in milliseconds
+    const differenceInMillis = Math.abs(d2 - d1)
+
+    // Convert milliseconds to days
+    const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24)
+
+    return differenceInDays
+}
+
 const heatmap = (dates, today, started = null) => {
     const matrix = []
     const todayDate = parseDate(today)
@@ -73,4 +94,4 @@ const getMonthsDifference = (date1, date2) => {
     return yearDiff * 12 + monthDiff;
 }
 
-module.exports = heatmap;
+module.exports = { heatmap, getStreak }

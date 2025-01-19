@@ -19,7 +19,6 @@ const getHabits = () => {
 }
 
 const deleteHabit = (id) => {
-    console.log(`habit id: ${id}`)
     const idToken = localStorage.getItem('idToken')
     return api.delete(`/habits/${id}`, {
         headers: {

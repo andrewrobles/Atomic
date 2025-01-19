@@ -35,7 +35,6 @@ const Auth = () => {
     const checkAuth = async () => {
       try {
         const idToken = localStorage.getItem('idToken')
-        console.log(`idToken: ${idToken}`)
         if (idToken) {
           navigate('/')
         }
@@ -57,7 +56,6 @@ const Auth = () => {
         const user = result.user;
         if (user) {
           user.getIdToken().then(idToken => {
-            console.log(`idToken: ${idToken}`)
             localStorage.setItem('idToken', idToken)
           })
           navigate('/')
