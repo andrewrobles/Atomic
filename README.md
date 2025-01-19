@@ -1,4 +1,4 @@
-# Dr. Habit
+# Dr. Habit: Break bad habits!
 
 Dr. Habit is a web application designed to help users break bad habits. Each day, users can mark their habits as complete or incomplete, allowing them to track their progress over time. The app features password protection to keep users' habit data private and secure.
 
