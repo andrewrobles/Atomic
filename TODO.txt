@@ -1,3 +1,4 @@
+handle success days before first fail day
 move heatmap to another tab
 edit habit name
 modify previous days
