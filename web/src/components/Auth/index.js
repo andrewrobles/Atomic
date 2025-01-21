@@ -79,7 +79,6 @@ const Auth = () => {
           justifyContent="center"
           minHeight="100vh"
           padding={2}
-          sx={{ backgroundColor: 'white' }}
         >
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Button

@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import api from '../api';
+import api from '../../api';
 import { useState } from 'react';
 
 const NewHabitDialog = ({ open, onClose, onSave }) => {
@@ -26,15 +26,15 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
 
     return (
         <Dialog
-        fullScreen
-        open={open}
-        onClose={onClose}
-        sx={{
-            '& .MuiDialog-paper': {
-            width: '550px', // Set the width of the dialog
-            maxWidth: 'none', // Disable default max width restriction
-            },
-        }}
+            fullScreen
+            open={open}
+            onClose={onClose}
+            sx={{
+                '& .MuiDialog-paper': {
+                    width: '550px', // Set the width of the dialog
+                    maxWidth: 'none', // Disable default max width restriction
+                },
+            }}
         >
             <AppBar sx={{ position: 'relative' }}>
                 <Toolbar>
