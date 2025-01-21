@@ -17,6 +17,9 @@ const validateIdToken = async (req, res, next) => {
 
 const getEmailFromIdToken = async (idToken) => {
   try {
+    if (idToken === 'demo') {
+      return 'demo'
+    }
     const decodedToken = await admin.auth().verifyIdToken(idToken)
     const uid = decodedToken.uid
     const userRecord = await admin.auth().getUser(uid)
