@@ -8,14 +8,11 @@ const getStreak = (dates, today, start) => {
 }
 
 const calculateDaysBetween = (date1, date2) => {
-    // Convert dates to Date objects
     const d1 = new Date(date1)
     const d2 = new Date(date2)
 
-    // Get the difference in milliseconds
     const differenceInMillis = Math.abs(d2 - d1)
 
-    // Convert milliseconds to days
     const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24)
 
     return differenceInDays
@@ -29,7 +26,7 @@ const heatmap = (dates, today, started = null) => {
     if (dates.length === 0) {
         earliestDate = started === null ? todayDate : parseDate(started)
     } else {
-        earliestDate = parseDate(dates[0])
+        earliestDate = started === null ? parseDate(dates[0]) : parseDate(started)
     }
     const latestDate = dates.length === 0 ? todayDate : parseDate(dates[dates.length - 1])
 

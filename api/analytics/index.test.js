@@ -27,6 +27,28 @@ test('getStreak handles no logs yet', () => {
     expect(actual).toEqual(expected)
 })
 
+test('heatmap handles success days before first fail day', () => {
+    const dates = ['2025-01-19']
+    const today = '2025-01-20'
+    const start = '2025-01-16'
+    const result = heatmap(dates, today, start)
+    const january = {
+        year: 2025,
+        month: 'Jan',
+        days: [
+            [null, false, false, false, false],  // Sundays
+            [null, false, false, false, false],  // Mondays
+            [null, false, false, false, false],  // Tuesdays
+            [false, false, false, false, false],  // Wednesdays
+            [false, false, false, false, false], // Thursdays
+            [false, false, true, false, false], // Fridays 
+            [false, false, true, false, null],  // Saturdays 
+        ]
+    }
+    expect(result.length).toEqual(12)
+    expect(result[0]).toEqual(january)
+})
+
 test('heatmap handles no logs yet', () => {
     const dates = []
     const result = heatmap(dates, '2025-01-05', '2025-01-02')
