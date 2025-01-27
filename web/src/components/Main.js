@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Container, CircularProgress, Typography } from '@mui/material'
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, CircularProgress, Typography } from '@mui/material';
 
-import NewHabitDialog from './NewHabitDialog'
-import NewHabitButton from './NewHabitButton'
-import SignOutButton from './SignOutButton'
-import Error from './Error'
-import api from '../../api'
-import BasicTabs from './HeatmapList/BasicTabs'
+import HabitList from '../components/HabitList';
+import NewHabitDialog from '../components/NewHabitDialog';
+import NewHabitButton from '../components/NewHabitButton';
+import SignOutButton from '../components/SignOutButton';
+import Error from '../components/Error';
+import api from '../api';
 
 function Main() {
   const [habits, setHabits] = useState([]);
@@ -22,10 +22,10 @@ function Main() {
         const response = await api.getHabits()
         setHabits(response.data)
         response.data.forEach(habit => {
-          const habitCopy = { ...habit }
+          const habitCopy = {...habit}
           delete habitCopy.calendar
           console.log(`habit: ${JSON.stringify(habitCopy)}`)
-        })
+        }) 
         setError(null)
       } catch (err) {
         if (err.response) {
@@ -47,7 +47,7 @@ function Main() {
       fetchHabits();
     }
   }, [navigate]);
-
+  
   const refreshHabits = async () => {
     setLoading(true);
     try {
@@ -72,7 +72,7 @@ function Main() {
     <div>
       <Container maxWidth="sm">
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
-          <SignOutButton />
+          <SignOutButton/>
         </div>
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
@@ -81,21 +81,20 @@ function Main() {
         ) : (
           <>
             {habits.length === 0 ? (
-              <Typography
-                variant="body1"
-                align="center"
+              <Typography 
+                variant="body1" 
+                align="center" 
                 sx={{ mt: 4, color: 'text.secondary' }}
               >
                 No habits have been added yet. Click the + button below to add your first habit!
               </Typography>
             ) : (
-
-              <BasicTabs habits={habits} onDelete={refreshHabits} />
+              <HabitList habits={habits} onDelete={refreshHabits} />
             )}
           </>
         )}
-        <NewHabitButton onClick={() => setOpenNewHabit(true)} />
-
+        <NewHabitButton onClick={() => setOpenNewHabit(true)}/>
+       
         <NewHabitDialog
           open={openNewHabit}
           onClose={() => setOpenNewHabit(false)}
