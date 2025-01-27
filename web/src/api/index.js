@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PROD_HOST = 'https://habits-api.netlify.app';
+const PROD_HOST = 'https://to-do-andrewrobles.netlify.app';
 const LOCAL_HOST = 'http://localhost:8888';
 const BASE_URL = window.location.hostname === 'localhost' ? LOCAL_HOST : PROD_HOST;
 
