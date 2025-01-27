@@ -86,7 +86,7 @@ function Main() {
                 align="center" 
                 sx={{ mt: 4, color: 'text.secondary' }}
               >
-                No habits have been added yet. Click the + button below to add your first habit!
+                No tasks have been added yet. Click the + button below to add your first task!
               </Typography>
             ) : (
               <HabitList habits={habits} onDelete={refreshHabits} />
