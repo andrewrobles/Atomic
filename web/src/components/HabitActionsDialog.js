@@ -29,7 +29,7 @@ const HabitActionsDialog = ({ open, onClose, onOpenConfirmDelete }) => {
                 justifyContent: 'space-between',
             }}
             >
-            <Typography variant="h6">Habit actions</Typography>
+            <Typography variant="h6">Task actions</Typography>
             <IconButton
                 aria-label="close"
                 onClick={onClose}

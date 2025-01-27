@@ -39,7 +39,6 @@ const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkN
             backgroundColor: '#fafafa', // Very slightly darker shade when hovered
           }
         }}
-        onClick={() => handleOpenDetail(item)}
       >
         <Checkbox 
           checked={isCompleted}
@@ -47,7 +46,6 @@ const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkN
           onClick={(e) => e.stopPropagation()} // Prevent ListItem click when clicking checkbox
         />
         <ListItemText primary={item.name} />
-        { item.streak > 0 ? `🔥 ${item.streak}` : '' }
         <IconButton
           edge="end"
           aria-label="more"

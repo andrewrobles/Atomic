@@ -47,7 +47,7 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
                         <CloseIcon />
                     </IconButton>
                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6">
-                        New habit
+                        New task
                     </Typography>
                     <Button autoFocus color="inherit" onClick={handleSubmit}>
                         Save
@@ -58,7 +58,7 @@ const NewHabitDialog = ({ open, onClose, onSave }) => {
                 <TextField
                     autoFocus
                     fullWidth
-                    label="Define your habit"
+                    label="Define your task"
                     variant="standard"
                     value={habitName}
                     onChange={(e) => setHabitName(e.target.value)}
