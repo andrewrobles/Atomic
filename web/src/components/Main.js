@@ -74,6 +74,12 @@ function Main() {
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px' }}>
           <SignOutButton/>
         </div>
+        <Typography variant="h4" sx={{ textAlign: 'left', fontWeight: 'bold', color: '#3a629c' }}>
+          My Day
+        </Typography>
+        <Typography variant="subtitle1" sx={{ color: '#3a629c' }}>
+          {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+        </Typography>
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
             <CircularProgress />

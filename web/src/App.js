@@ -7,7 +7,7 @@ import Demo from './components/Demo'
 const App = () => {
   return (
     <Router>
-      <div style={{ backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
+      <div style={{ backgroundColor: '#d9ecf9', minHeight: '100vh' }}>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/auth" element={<Auth />} />
