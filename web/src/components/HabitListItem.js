@@ -45,8 +45,7 @@ const HabitListItem = ({ item, onOpen, handleOpenDetail, onMarkComplete, onMarkN
           onChange={handleCheckboxChange}
           onClick={(e) => e.stopPropagation()} // Prevent ListItem click when clicking checkbox
         />
-        <ListItemText primary={item.name} style={{textDecoration: 'line-through'}} />
-        <div>test</div>
+        <ListItemText primary={item.name} style={{textDecoration: isCompleted ? 'line-through' : 'none'}} />
         <IconButton
           edge="end"
           aria-label="more"
